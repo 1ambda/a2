@@ -16,6 +16,23 @@
 	max-width: 80rem;
 }
 
+#target {
+	overflow: auto;
+}
+
+#target table thead th {
+	font-size: 13px;
+}
+
+#target table tbody td {
+	font-size: 12px;
+}
+
+
+
+
+
+
 
 
 
