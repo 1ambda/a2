@@ -19,8 +19,6 @@ exports.debug = function(req, res) {
 			var key = JSON.parse(data);
 			req.session.akid = key.accessKeyId;
 			req.session.sak = key.secretAccessKey;
-			console.log(req.session.akid);
-			console.log(req.session.sak);
 			res.render('main');
 		}
 	});

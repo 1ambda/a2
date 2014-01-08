@@ -12,5 +12,19 @@ a {
 	text-align: center;
 }
 
+.top-bar-section .dropdown li a:hover {
+	background: #008cba;
+}
+
+.top-bar-section ul li.has-dropdown > a:hover {
+	background: #008cba;
+}
+
+.top-bar-section ul li.link > a:hover {
+	background: #008cba;
+}
+
+
+
 
 
