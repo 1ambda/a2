@@ -1,0 +1,22 @@
+.sidebar {
+	padding: 15px;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.sidebar a {
+	font-size: 12px;
+}
+
+#sidebar {
+	background-color: #FAFAFA;
+	background-repeat: repeat-x;
+}
+
+.row {
+	max-width: 80rem;
+}
+
+
+
+
+

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>A2</title>
+		<meta name="description" content="">
+		<meta name="author" content="5001218">
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+		<link rel="stylesheet" href="foundation/css/foundation.css" />
+		<link rel="stylesheet" href="stylesheets/style.css" />
+		<link rel="stylesheet" href="stylesheets/index.css" />
+		<script src="modernizr/modernizr.js"></script>
+	</head>
+
+	<body>
+		<nav class="top-bar" data-topbar>
+			<ul class="title-area">
+				<li class="name">
+					<h1><a href="#">AWS Archer</a></h1>
+				</li>
+				<li class="toggle-topbar menu-icon">
+					<a href="#"><span>Menu</span></a>
+				</li>
+			</ul>
+
+			<section class="top-bar-section">
+				<!-- Right Nav Section -->
+				<ul class="right">
+					<li>
+						<a href="https://skpinfra.signin.aws.amazon.com/console" target="_blank">AWS Console</a>
+					</li>
+					<li>
+						<a href="#" data-reveal-id="modal_login">Login</a>
+					</li>
+				</ul>
+
+				<!-- Left Nav Section -->
+				<ul class="left">
+					<!-- <li><a href="#">AWS Archer</a></li> -->
+				</ul>
+			</section>
+		</nav>
+		<!-- nav -->
+
+		<section id="section_main">
+			<div class="container">
+				<div class="row">
+					<div class="medium-7 large-6 columns">
+						<br/>
+						<h1>A2 (AWS Archer)</h1>
+						<h3>Amazone Webservice
+						<br/>
+						Monitoring System</h3>
+					</div>
+					<div class="medium-5 large-6 columns">
+						<img src="images/aws.png">
+					</div>
+				</div>
+				<div class="row">
+					<a class="button" href="#" data-reveal-id="modal_login">Getting Started</a>
+				</div>
+			</div>
+		</section>
+		<!-- section main-->
+
+		<section id="section_desc">
+			<div class="container">
+				<div class="row centered-text">
+					<div class="large-12 columns">
+						<h1>Easy, Open, Free. That's all. </h1>
+
+						<div class="medium-4 large-4 columns">
+							<img class="main-con" src="images/check.png">
+							<h4>Alert</h4>
+							<br/>
+							<p>
+								Users will feel the speed.
+								Interchange now enables HTML partials for device specific content. Smoother animations and transitions happen with hardware acceleration. The default styles are all updated.
+							</p>
+						</div>
+						<div class="medium-4 large-4 columns">
+							<img class="main-con" src="images/console.png">
+							<h4>Web Console</h4>
+							<br/>
+							<p>
+								For the nerd in all of you,
+								we've built a new command line tool to spin up projects fast and added Libsass, speeding up your SCSS changes by 5X. Our HTML Templates have even been brought up to speed.
+							</p>
+						</div>
+						<div class="medium-4 large-4 columns">
+							<img class="main-con" src="images/config.png">
+							<h4>Config</h4>
+							<br/>
+							<p>
+								We overhauled our documentation with all new and more detailed code examples. And we're now supporting Foundation with a new forum and expert training so you can get started building even faster.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div id="modal_login" class="reveal-modal small" data-reveal>
+			<h2>Login</h2>
+			<br/>
+			<form id="loginForm" action="login" method="POST">
+				<div class="row collapse">
+					<div class="small-3 large-2 columns">
+						<span class="prefix">AKID</span>
+					</div>
+					<div class="small-9 large-10 columns">
+						<input id="input_akid" name="akid" type="text" placeholder="Access Key ID">
+					</div>
+				</div>
+				<small class="error">"Access Key ID" is required</small>
+				<div class="row collapse">
+					<div class="small-3 large-2 columns">
+						<span class="prefix">SAK</span>
+					</div>
+					<div class="small-9 large-10 columns">
+						<input id="input_sak" name="sak" type="text" placeholder="Secret Access Key">
+					</div>
+				</div>
+				<small class="error">"Secret Access key" is required</small>
+				<a href="#" class="button small" id="input_login">Log in</a>
+			</form>
+			<a class="close-reveal-modal">×</a>
+		</div>
+
+
+
+		<script src="jquery/jquery.js"></script>
+		<script src="foundation/js/foundation.js"></script>
+		<script src="underscore/underscore.js"></script>
+		<script src="backbone/backbone.js"></script>
+		<script>
+			$(document).foundation();
+		</script>
+
+		<script src="javascripts/index.js"></script>
+	</body>
+</html>

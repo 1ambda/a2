@@ -1,0 +1,23 @@
+#section_main {
+	background-color: #085a78;
+	font-family: 'Ubuntu', sans-serif;
+	color: white;
+}
+
+#section_main h1, #section_main h3 {
+	color: white;
+	font-family: 'Ubuntu', sans-serif;
+	padding-top: 20px;
+}
+
+#section_main a {
+	margin-left: 15px;
+}
+
+#section_desc {
+	background-color: #efefef;
+}
+
+.main-con {
+	padding: 30px 0px;
+}

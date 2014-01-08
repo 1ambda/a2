@@ -1,0 +1,23 @@
+{
+  "name": "A2",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ansterd/A2",
+  "authors": [
+    "razenrote <ansterd@nate.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "bootstrap": "~3.0.3",
+    "foundation": "~5.0.2",
+    "underscore": "~1.5.2",
+    "backbone": "~1.1.0"
+  }
+}
