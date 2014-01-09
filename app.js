@@ -8,6 +8,10 @@ var routes = require('./routes');
 // var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+
+var ejs = require('ejs');
+ejs.open = '{{';
+ejs.close = '}}';
  
 
 var AWS = require('aws-sdk');
@@ -31,7 +35,7 @@ var app = express();
 
 // all environments
 app.set('port', process.env.PORT || 80);
-app.engine('.html', require('ejs').__express);
+app.engine('.html', ejs.__express);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 app.use(express.favicon());

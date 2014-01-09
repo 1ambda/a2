@@ -11,7 +11,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="5001218">
 
-		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
 		<link rel="shortcut icon" href="/favicon.ico">
@@ -208,36 +208,14 @@
 					</div>
 				</div>
 				<br/>
-				<div id="target" class="row">
+				<div class="row">
 					<div class="small-12 medium-11 large-9 columns">
 						<h4>Target</h4>
 						<br/>
 						<div id="target">
-							<table>
-								<thead>
-									<tr>
-										<th>Service Name</th>
-										<th>Instance ID</th>
-										<th>Instance Type</th>
-										<th>Instance State</th>
-										<th>Region</th>
-										<th>Public IP</th>
-										<th>Security Group</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>Content Goes Here</td>
-										<td>Content Goes Here</td>
-										<td>Content Goes Here</td>
-										<td>Content Goes Here</td>
-										<td>Content Goes Here</td>
-										<td>Content Goes Here</td>
-										<td>Content Goes Here</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+							
+						</div> 
+						<!-- target -->
 					</div>
 				</div>
 			</div>
@@ -245,6 +223,64 @@
 		</div>
 		<!-- content -->
 
+		<!-- template zone -->
+		<script type="text/template" id="tmpl_instance_list">
+			<table>
+			<thead>
+			<tr>
+			<th>Service Name</th>
+			<th>Instance ID</th>
+			<th>Instance Type</th>
+			<th>Instance State</th>
+			<th>Region</th>
+			<th>Public IP</th>
+			<th>Security Group</th>
+			</tr>
+			</thead>
+			<tbody>
+
+			</tbody>
+			</table>
+		</script>
+		
+		<script type="text/template" id="tmpl_instance_item">
+			<td><%= service_name %></td>
+			<td><%= instance_id %></td>
+			<td><%= instance_type %></td>
+			<td><%= instance_state %></td>
+			<td><%= region %></td>
+			<td><%= public_ip %></td>
+			<td><%= security_group %></td>
+		</script>
+
+		<script type="text/template" id="tmpl_service_list">
+			<table>
+				<thead>
+					<tr>
+					<th>Service Name</th>
+					<th>Instance Number</th>
+					<th>State: Running</th>
+					<th>State: Pending</th>
+					<th>State: Stopped</th>
+					<th>State: Terminated</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+		</script>
+		
+		<script type="text/template" id="tmpl_service_item">
+			<td><%= service_name %></td>
+			<td><%= instance_number %></td>
+			<td><%= state_running %></td>
+			<td><%= state_pending %></td>
+			<td><%= state_stopped %></td>
+			<td><%= state_terminated %></td>
+		</script>
+
+		<!-- script zone -->
 		<script src="jquery/jquery.js"></script>
 		<script src="foundation/js/foundation.js"></script>
 		<script src="underscore/underscore.js"></script>
