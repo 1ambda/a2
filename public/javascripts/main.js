@@ -52,48 +52,64 @@ $(document).ready(function() {
 		},
 
 		addAll : function() {
+			this.$('tbody').html('');
 			this.collection.each(this.addOne);
 		}
 	});
-	
+
 	window.Service = Backbone.Model.extend({
-		
+
 	});
-	
+
 	window.Services = Backbone.Collection.extend({
-		model: Service	
+		model : Service
 	});
-	
+
 	window.ServiceItem = Backbone.View.extend({
-		tarName: 'tr',
-		template: _.template($('#tmpl_service_item').html()),
-		events: {
-			'click' : 'itemClick'	
+		tagName : 'tr',
+		template : _.template($('#tmpl_service_item').html()),
+		events : {
+			'click' : 'itemClick'
 		},
-		
-		render: function() {
+
+		render : function() {
 			var tmpl = this.template(this.model.toJSON());
-			$(this.el).html(templ);
+			$(this.el).html(tmpl);
 			return this;
 		},
-		
-		itemClick: function() {
+
+		itemClick : function() {
 			alert(JSON.stringify(this.model.toJSON()));
 		}
 	});
-	
-	window.ServiceList = Backbone.View.extend({
-		el: $('#target'),
 
-		tempalte: _.template($('#tmpl_service_list').html()),
-		
-		initialize: function() {
+	window.ServiceList = Backbone.View.extend({
+		el : $('#target'),
+
+		template : _.template($('#tmpl_service_list').html()),
+
+		initialize : function() {
 			this.collection.bind('add', this.addOne, this);
-			this.collectino.bind('reset', this.addAll, this);
+			this.collection.bind('reset', this.addAll, this);
 		},
-		
-		render: function() {
-			
+
+		render : function() {
+			var tmpl = this.template();
+			$(this.el).html(tmpl);
+			this.addAll();
+			return this;
+		},
+
+		addOne : function(item) {
+			var view = new ServiceItem({
+				model : item
+			});
+			this.$('tbody').append(view.render().el);
+		},
+
+		addAll : function() {
+			this.$('tbody').html('');
+			this.collection.each(this.addOne);
 		}
 	});
 
@@ -106,6 +122,12 @@ $(document).ready(function() {
 
 			this.instances.add(createDummyInstances());
 			this.instanceList.render();
+
+			this.services = new Services();
+			this.serviceList = new ServiceList({
+				collection : this.services
+			});
+			this.services.add(createDummyServices());
 		},
 	});
 
@@ -130,7 +152,7 @@ $(document).ready(function() {
 		},
 
 		servicePage : function() {
-			appView.instanceList.render();
+			appView.serviceList.render();
 		},
 
 		alertPage : function() {
@@ -138,14 +160,14 @@ $(document).ready(function() {
 		},
 
 		regionPage : function(region) {
-			alert(region);
+			appView.instanceList.render();
 		},
 	});
 
 	var appRouter = new A2Router();
 
 	Backbone.history.start();
-}); 
+});
 
 function createDummyInstances() {
 	return [{
@@ -197,4 +219,37 @@ function createDummyInstances() {
 		public_ip : "58.102.14.51",
 		security_group : "default"
 	}];
-}
+};
+
+function createDummyServices() {
+	return [{
+		service_name : "One ID",
+		instance_number : 5,
+		state_running : 3,
+		state_pending : 1,
+		state_stopped : 1,
+		state_terminated : 0
+	}, {
+		service_name : "Hoppin",
+		instance_number : 5,
+		state_running : 3,
+		state_pending : 1,
+		state_stopped : 1,
+		state_terminated : 0
+	}, {
+		service_name : "T Cloud",
+		instance_number : 5,
+		state_running : 3,
+		state_pending : 1,
+		state_stopped : 1,
+		state_terminated : 0
+	}, {
+		service_name : "OCB",
+		instance_number : 5,
+		state_running : 3,
+		state_pending : 1,
+		state_stopped : 1,
+		state_terminated : 0
+	}];
+};
+
