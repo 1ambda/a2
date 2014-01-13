@@ -6,7 +6,6 @@ window.RenderedServices = Backbone.Collection.extend({
 	model : RenderedService
 });
 
-
 window.Service = Backbone.Model.extend({
 
 });
@@ -17,7 +16,24 @@ window.Services = Backbone.Collection.extend({
 });
 
 window.ServiceItem = Backbone.View.extend({
+	tagName : 'tr',
+	template : _.template($('#tmpl_service_item').html()),
 
+	events : {
+		'click' : 'itemClick'
+	},
+
+	render : function() {
+		var tmpl = this.template(this.model.toJSON());
+		$(this.el).html(tmpl);
+		return this;
+	},
+
+	itemClick : function() {
+		window.router.navigate('services/' + this.model.get('service_name'), {
+			trigger : true
+		});
+	}
 });
 
 window.ServiceList = Backbone.View.extend({
@@ -25,11 +41,12 @@ window.ServiceList = Backbone.View.extend({
 	template : _.template($('#tmpl_service_list').html()),
 
 	initialize : function() {
+		this.rendered = new RenderedServices();
 		this.listenTo(this.collection, 'reset', this.filter);
+		this.listenTo(this.rendered, 'reset', this.addAll);
 		this.views = [];
 		this.service_names = [];
 		this.services = [];
-
 	},
 
 	render : function() {
@@ -43,16 +60,19 @@ window.ServiceList = Backbone.View.extend({
 	},
 
 	addOne : function(item) {
+		var view = new ServiceItem({
+			model : item
+		});
 
+		this.views.push(view);
+		this.$('tbody').append(view.render().el);
 	},
 
 	addAll : function() {
-
+		this.rendered.each(this.addOne, this);
 	},
 
 	filter : function() {
-		console.log('filter function');
-
 		this.service_names = this.collection.pluck('service_name');
 
 		_.each(this.service_names, function(item) {
@@ -72,13 +92,10 @@ window.ServiceList = Backbone.View.extend({
 		}, this);
 
 		_.each(this.services, function(services) {
-
 			_.each(services.list, function(item) {
 				services.instance_number++;
-				
-				switch(item.instance_state) {
+				switch(item.get('instance_state')) {
 					case 'running' :
-					console.log('run');
 						services.running++;
 						break;
 					case 'pending' :
@@ -95,7 +112,6 @@ window.ServiceList = Backbone.View.extend({
 		}, this);
 
 		var models = [];
-		var views = [];
 
 		_.each(this.services, function(services) {
 			var model = new RenderedService({
@@ -106,10 +122,11 @@ window.ServiceList = Backbone.View.extend({
 				state_stopped : services.stopped,
 				state_terminated : services.terminated
 			});
-			
-			console.log(model.toJSON());
+
+			models.push(model);
 		});
-		
+
+		this.rendered.reset(models);
 
 	},
 
@@ -123,18 +140,10 @@ window.ServiceList = Backbone.View.extend({
 		}
 
 		if (this.service_names.length) {
-			_.each(this.service_names, function(item) {
-				item.remove();
-			});
-
 			this.service_names.length = 0;
 		}
 
 		if (this.services.length) {
-			_.each(this.services, function(item) {
-				item.remove();
-			});
-
 			this.services.length = 0;
 		}
 	}

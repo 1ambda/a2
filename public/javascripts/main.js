@@ -6,7 +6,7 @@ $(document).ready(function() {
 			this.instanceList = new InstanceList({
 				collection : this.instances
 			});
-
+			
 			this.services = new Services();
 			this.serviceList = new ServiceList({
 				collection : this.services
@@ -23,6 +23,7 @@ $(document).ready(function() {
 			'service' : 'servicePage',
 			'alert' : 'alertPage',
 			'region/:region' : 'regionPage',
+			'services/:name' : 'specificServicePage'
 		},
 
 		logoutAction : function() {
@@ -37,6 +38,10 @@ $(document).ready(function() {
 
 		servicePage : function() {
 			appView.serviceList.render();
+		},
+		
+		specificServicePage: function(name) {
+			console.log(name);	
 		},
 
 		alertPage : function() {
@@ -53,6 +58,8 @@ $(document).ready(function() {
 	});
 
 	var appRouter = new A2Router();
+	window.router = appRouter;
+	
 	Backbone.history.start();
 });
 
