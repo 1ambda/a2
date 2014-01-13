@@ -11,7 +11,6 @@ $(document).ready(function() {
 			this.serviceList = new ServiceList({
 				collection : this.services
 			});
-
 		},
 	});
 
@@ -37,25 +36,23 @@ $(document).ready(function() {
 		},
 
 		servicePage : function() {
-			appView.services.reset(createDummyServices());
+			appView.serviceList.render();
 		},
 
 		alertPage : function() {
 		},
 
 		regionPage : function(region) {
-
 			if (region === undefined) {
 				region = 'global';
 			}
-
+			
 			appView.instances.url = '/instances/' + region;
-			appView.instances.fetch({reset : true});
+			appView.instanceList.render();
 		},
 	});
 
 	var appRouter = new A2Router();
-
 	Backbone.history.start();
 });
 

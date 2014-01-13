@@ -4,13 +4,13 @@ window.Instance = Backbone.Model.extend({
 
 window.Instances = Backbone.Collection.extend({
 	model : Instance,
-	url: '/instance'
+	url : '/instance'
 });
 
 window.InstanceItem = Backbone.View.extend({
 	tagName : 'tr',
 	template : _.template($('#tmpl_instance_item').html()),
-	
+
 	events : {
 		'click' : 'itemClick'
 	},
@@ -39,19 +39,22 @@ window.InstanceList = Backbone.View.extend({
 	render : function() {
 		var tmpl = this.template();
 		$(this.el).html(tmpl);
+
 		this.removeAll();
+		this.collection.fetch({
+			reset : true
+		});
 	},
 
-	addOne : function(item) {
-		var view = new InstanceItem({			model : item,
+	addOne : function(item) {		var view = new InstanceItem({
+			model : item,
 		});
-		
+
 		this.views.push(view);
 		this.$('tbody').append(view.render().el);
 	},
 
 	addAll : function() {
-		this.render();
 		this.collection.each(this.addOne, this);
 	},
 
