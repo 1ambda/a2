@@ -6,10 +6,10 @@ $(document).ready(function() {
 			this.instanceList = new InstanceList({
 				collection : this.instances
 			});
-			
+
 			this.services = new Services();
 			this.serviceList = new ServiceList({
-				collection: this.services	
+				collection : this.services
 			});
 
 		},
@@ -44,7 +44,13 @@ $(document).ready(function() {
 		},
 
 		regionPage : function(region) {
-			appView.instances.reset(createDummyInstances());
+
+			if (region === undefined) {
+				region = 'global';
+			}
+
+			appView.instances.url = '/instances/' + region;
+			appView.instances.fetch({reset : true});
 		},
 	});
 

@@ -3,7 +3,8 @@ window.Instance = Backbone.Model.extend({
 });
 
 window.Instances = Backbone.Collection.extend({
-	model : Instance
+	model : Instance,
+	url: '/instance'
 });
 
 window.InstanceItem = Backbone.View.extend({

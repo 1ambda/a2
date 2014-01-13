@@ -9,8 +9,7 @@ exports.index = function(req, res) {
 exports.debug = function(req, res) {
 	req.session.login = true;
 
-	var common = require('./common');
-	var fs = common.getfs();
+	var fs = require('fs');
 
 	fs.readFile('config.json', 'utf8', function(err, data) {
 		if (err) {
@@ -22,7 +21,6 @@ exports.debug = function(req, res) {
 			res.render('main');
 		}
 	});
-
 };
 
 exports.login = function(req, res) {
@@ -34,7 +32,7 @@ exports.login = function(req, res) {
 		return;
 	}
 
-	var sdk = require('./aws');
+	var sdk = require('./utils/aws');
 	var aws = sdk.createService(req.body.akid, req.body.sak);
 	var ec2 = new aws.EC2({
 		region : "us-east-1"

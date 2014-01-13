@@ -4,10 +4,10 @@
  */
 
 var express = require('express');
-var routes = require('./app/routes');
-// var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://archer:rampart@localhost/test');
 
 var ejs = require('ejs');
 ejs.open = '{{';
@@ -54,18 +54,13 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-// !-- Debug -!
-// app.get('/', routes.index);
-app.get('/', routes.debug);
-
-app.post('/login', routes.login);
-app.get('/logout', routes.logout);
-// app.get('/users', user.list);
-
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
+// route
 
+var routing = require('./app/routes/route');
+routing(app);
 
 
