@@ -50,7 +50,7 @@ $(document).ready(function() {
 			appView.resourceList.render();
 
 			// for sample chart
-
+			createDummyChart('chart1');
 		
 		},
 

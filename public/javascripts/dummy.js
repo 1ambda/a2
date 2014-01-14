@@ -256,7 +256,8 @@ function createDummyResources() {
 	return chartData;
 };
 
-function createDummyChart(chart, chart_name) {
+function createDummyChart(chart_name) {
+	var chart;
 	var graph;
 
 	var chartData = createDummyResources();
