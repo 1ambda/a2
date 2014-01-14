@@ -2,26 +2,13 @@ var Instance = require('../models/instance');
 var Lock = require('../models/lock');
 var _ = require('underscore');
 
-exports.read = function(req, res) {
+exports.readByRegion = function(req, res) {
 	var region = req.params.region;
 	var query = makeQuery(req.params.region);
 
-	Lock.find(null, function(err, data) {
-		if (err) {
-			return console.log(err);
-		}
-
-		// There is no lock
-		if (!data.length) {
-			return send();
-		}
-
-		var lock = data[0];
-
-		// Locked
-		if (lock.locked) {
-			console.log('locked');
-			return send();
+	getLock(function(lock) {
+		if (!lock) {
+			res.send();
 		}
 
 		var documentNumber = lock[region];
@@ -33,12 +20,51 @@ exports.read = function(req, res) {
 				console.log(err);
 				return res.send();
 			}
-
-			console.log(docs);
 			res.send(docs);
 		});
-
 	});
+};
+
+exports.readByService = function(req, res) {
+	
+	var service = req.params.service;
+	
+	if ( service == 'null') {
+		service = null;
+	}
+
+	getLock(function(lock) {
+		if (!lock) {
+			res.send();
+		}
+		
+		var documentNumber = lock.global;
+		
+		Instance.find().sort({
+			updated: -1
+		})	.limit(documentNumber).exec(function(err, docs) {
+			if (err) {
+				console.log(err);
+				return res.send();	
+			}	
+			
+			var services = _.where(docs, { service_name : service} );
+			res.send(services);
+		});
+	});
+};
+
+exports.readById = function(req, res) {
+	console.log('readById : ' + req.params.id);
+
+	getLock(function(lock) {
+		if (!lock) {
+			res.send();
+		}
+
+		res.send();
+	});
+
 };
 
 function makeQuery(region) {
@@ -52,5 +78,28 @@ function makeQuery(region) {
 	}
 
 	return query;
+};
+
+function getLock(callback) {
+	Lock.find(null, function(err, docs) {
+		// MongoDB error occurred.
+		if (err) {
+			return null;
+		}
+
+		// There is no lock
+		if (!docs.length) {
+			return null;
+		}
+
+		var lock = docs[0];
+
+		if (lock.locked) {
+			console.log('locked');
+			return null;
+		}
+
+		callback(lock);
+	});
 };
 

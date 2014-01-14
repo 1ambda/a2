@@ -100,123 +100,25 @@
 		<!-- nav -->
 
 		<div id="sidebar" class="large-2 medium-3 columns">
-			<div class="hide-for-small">
-				<div class="sidebar">
-					<!-- <form>
-					<input tabindex="1" id="autocomplete" type="search" placeholder="Shoot an arrow" autocomplete="off">
-					</form> -->
+			<div id="arrow" class="hide-for-small">
 
-					<nav>
-						<ul class="side-nav">
-							<h5>The Arrows</h5>
-							<li>
-								<a href="#" data-search="">name</a>
-							</li>
-							<li>
-								<a href="#" data-search="">instance-id</a>
-							</li>
-							<li>
-								<a href="#" data-search="">instance-type</a>
-							</li>
-							<li>
-								<a href="#" data-search="">instance-state</a>
-							</li>
-							<li>
-								<a href="#" data-search="">region</a>
-							</li>
-							<li>
-								<a href="#" data-search="">public-ip</a>
-							</li>
-							<li>
-								<a href="#" data-search="">security-group</a>
-							</li>
-							<li>
-								<a href="#" data-search=""></a>
-							</li>
-							<li class="divider"></li>
-							<li class="heading">
-								Regions
-							</li>
-							<li>
-								<a href="#" data-search="">eu-west-1</a>
-							</li>
-							<li>
-								<a href="#" data-search="">sa-east-1</a>
-							</li>
-							<li>
-								<a href="#" data-search="">ap-northeast-1</a>
-							</li>
-							<li>
-								<a href="#" data-search="">ap-southeast-1</a>
-							</li>
-							<li>
-								<a href="#" data-search="">us-west-1</a>
-							</li>
-							<li>
-								<a href="#" data-search="">us-west-2</a>
-							</li>
-							<li>
-								<a href="#" data-search="">us-east-1</a>
-							</li>
-
-							<li class="divider"></li>
-							<li class="heading">
-								Instance Types
-							</li>
-							<li>
-								<a href="#" data-search="">General : m1, m3</a>
-							</li>
-							<li>
-								<a href="#" data-search="">Compute : c1, c3, cc2</a>
-							</li>
-							<li>
-								<a href="#" data-search="">Memory : m2, cr1</a>
-							</li>
-							<li>
-								<a href="#" data-search="">Storage : hi1, hs1, i2</a>
-							</li>
-							<li>
-								<a href="#" data-search="">Micro : t1</a>
-							</li>
-							<li>
-								<a href="#" data-search="">GPU : cg1, g2 </a>
-							</li>
-
-							<li class="divider"></li>
-
-						</ul>
-					</nav>
-				</div>
 			</div>
 		</div>
 		<!-- sidebar -->
 
 		<div id="content" class="large-10 medium-9 columns">
 			<div class="container">
-				<div class="row">
-					<div class="small-12 medium-11 large-9 columns">
-						<h4>Bow</h4>
-						<br/>
-						<div id="bow" class="row collapse">
-							<div class="small-10 columns">
-								<input type="text" placeholder="Shoot an arrow">
-							</div>
-							<div class="small-2 columns">
-								<a herf="#" class="button postfix">Shoot</a>
-							</div>
-						</div>
-					</div>
+				<div id="bow" class="row">
+
 				</div>
 				<br/>
 				<div class="row">
-					<div class="small-12 medium-11 large-9 columns">
-						<h4>Target</h4>
-						<br/>
-						<div id="target">
+					<div id="target">
 
-						</div>
-						<!-- target -->
+						<!-- sample chart -->
+						<!-- sample chart end -->
 					</div>
+					<!-- target -->
 				</div>
 			</div>
 			<!-- container -->
@@ -224,7 +126,15 @@
 		<!-- content -->
 
 		<!-- template zone -->
+		<script type="text/template" id="tmpl_resource_list">
+			<h4>Network Out</h4>
+			<div id="chart1" class="small-12 medium-6 large-4"></div>
+		</script>
+
 		<script type="text/template" id="tmpl_instance_list">
+			<div class="small-12 medium-11 large-9 columns">
+			<h4>Target</h4>
+			<br/>
 			<table>
 			<thead>
 			<tr>
@@ -241,6 +151,7 @@
 
 			</tbody>
 			</table>
+			</div>
 		</script>
 
 		<script type="text/template" id="tmpl_instance_item">
@@ -254,30 +165,134 @@
 		</script>
 
 		<script type="text/template" id="tmpl_service_list">
+			<div class="small-12 medium-11 large-9 columns">
+			<h4>Target</h4>
+			<br/>
 			<table>
 			<thead>
 			<tr>
 			<th>Service Name</th>
 			<th>Instance Number</th>
-			<th>State: Running</th>
-			<th>State: Pending</th>
-			<th>State: Stopped</th>
-			<th>State: Terminated</th>
+			<th>Alert Number</th>
+			<th>Running</th>
+			<th>Pending</th>
+			<th>Stopped</th>
+			<th>Terminated</th>
 			</tr>
 			</thead>
 			<tbody>
 
 			</tbody>
 			</table>
+			</div>
 		</script>
 
 		<script type="text/template" id="tmpl_service_item">
 			<td><%= service_name %></td>
 			<td><%= instance_number %></td>
+			<td>Impl</td>
 			<td><%= state_running %></td>
 			<td><%= state_pending %></td>
 			<td><%= state_stopped %></td>
 			<td><%= state_terminated %></td>
+		</script>
+
+		<script type="text/template" id="tmpl_bow">
+			<div class="small-12 medium-11 large-9 columns">
+			<div class="row collapse">
+			<h4>Bow</h4>
+			<br/>
+			<div class="small-10 columns">
+			<input type="text" placeholder="Shoot an arrow">
+			</div>
+			<div class="small-2 columns">
+			<a herf="#" class="button postfix">Shoot</a>
+			</div>
+			</div>
+			</div>
+		</script>
+
+		<script type="text/template" id="tmpl_arrow">
+			<div class="sidebar">
+			<nav>
+			<ul class="side-nav">
+			<h5>The Arrows</h5>
+			<li>
+			<a href="#" data-search="">name</a>
+			</li>
+			<li>
+			<a href="#" data-search="">instance-id</a>
+			</li>
+			<li>
+			<a href="#" data-search="">instance-type</a>
+			</li>
+			<li>
+			<a href="#" data-search="">instance-state</a>
+			</li>
+			<li>
+			<a href="#" data-search="">region</a>
+			</li>
+			<li>
+			<a href="#" data-search="">public-ip</a>
+			</li>
+			<li>
+			<a href="#" data-search="">security-group</a>
+			</li>
+			<li>
+			<a href="#" data-search=""></a>
+			</li>
+			<li class="divider"></li>
+			<li class="heading">
+			Regions
+			</li>
+			<li>
+			<a href="#" data-search="">eu-west-1</a>
+			</li>
+			<li>
+			<a href="#" data-search="">sa-east-1</a>
+			</li>
+			<li>
+			<a href="#" data-search="">ap-northeast-1</a>
+			</li>
+			<li>
+			<a href="#" data-search="">ap-southeast-1</a>
+			</li>
+			<li>
+			<a href="#" data-search="">us-west-1</a>
+			</li>
+			<li>
+			<a href="#" data-search="">us-west-2</a>
+			</li>
+			<li>
+			<a href="#" data-search="">us-east-1</a>
+			</li>
+
+			<li class="divider"></li>
+			<li class="heading">
+			Instance Types
+			</li>
+			<li>
+			<a href="#" data-search="">General : m1, m3</a>
+			</li>
+			<li>
+			<a href="#" data-search="">Compute : c1, c3, cc2</a>
+			</li>
+			<li>
+			<a href="#" data-search="">Memory : m2, cr1</a>
+			</li>
+			<li>
+			<a href="#" data-search="">Storage : hi1, hs1, i2</a>
+			</li>
+			<li>
+			<a href="#" data-search="">Micro : t1</a>
+			</li>
+			<li>
+			<a href="#" data-search="">GPU : cg1, g2 </a>
+			</li>
+			<li class="divider"></li>
+			</ul>
+			</nav>
+			</div>
 		</script>
 
 		<!-- script zone -->
@@ -288,10 +303,15 @@
 		<script>
 			$(document).foundation();
 		</script>
+		<script src="javascripts/amcharts/amcharts.js" type="text/javascript"></script>
+		<script src="javascripts/amcharts/serial.js" type="text/javascript"></script>
 
 		<script src="javascripts/dummy.js"></script>
-		<script src="javascripts/services.js"></script>
-		<script src="javascripts/instances.js"></script>
+		<script src="javascripts/backbone/services.js"></script>
+		<script src="javascripts/backbone/instances.js"></script>
+		<script src="javascripts/backbone/resources.js"></script>
+		<script src="javascripts/backbone/arrow.js"></script>
+		<script src="javascripts/backbone/bow.js"></script>
 		<script src="javascripts/main.js"></script>
 	</body>
 </html>

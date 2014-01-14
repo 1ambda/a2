@@ -10,7 +10,9 @@ var routing = function(app) {
 	app.get('/logout', index.logout);
 	
 	// instance
-	app.get('/instances/:region', instance.read);
+	app.get('/instances/region/:region', instance.readByRegion);
+	app.get('/instances/service/:service', instance.readByService);
+	app.get('/instance/:id', instance.readById);
 };
 
 module.exports = routing; 

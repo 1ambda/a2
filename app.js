@@ -12,24 +12,6 @@ mongoose.connect('mongodb://archer:rampart@localhost/test');
 var ejs = require('ejs');
 ejs.open = '{{';
 ejs.close = '}}';
- 
-
-var AWS = require('aws-sdk');
-
-AWS.config.loadFromPath('./config.json');
-
-var ec2_1 = new AWS.EC2({region: "ap-northeast-1"});
-var ec2_2 = new AWS.EC2({region: "us-east-1"});
-
-// new AWS.EC2().stopInstances({ InstanceIds : ["i-d965b7de"]}, function(error, data) {
-  // if (error) {
-    // console.log(error); // an error occurred
-  // } else {
-    // console.log(data[2]); // request succeeded
-//     
-//     
-  // }
-// });
 
 var app = express();
 

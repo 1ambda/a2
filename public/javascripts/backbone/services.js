@@ -12,11 +12,12 @@ window.Service = Backbone.Model.extend({
 
 window.Services = Backbone.Collection.extend({
 	model : Service,
-	url : '/instances/global'
+	url : '/instances/region/global'
 });
 
 window.ServiceItem = Backbone.View.extend({
 	tagName : 'tr',
+	// className : 'centered-text',
 	template : _.template($('#tmpl_service_item').html()),
 
 	events : {
@@ -30,7 +31,7 @@ window.ServiceItem = Backbone.View.extend({
 	},
 
 	itemClick : function() {
-		window.router.navigate('services/' + this.model.get('service_name'), {
+		window.router.navigate('service/' + this.model.get('service_name'), {
 			trigger : true
 		});
 	}

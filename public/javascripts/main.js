@@ -6,11 +6,16 @@ $(document).ready(function() {
 			this.instanceList = new InstanceList({
 				collection : this.instances
 			});
-			
+
 			this.services = new Services();
 			this.serviceList = new ServiceList({
 				collection : this.services
 			});
+			
+			this.resourceList = new ResourceList();
+
+			this.arrow = new ArrowView();
+			this.bow = new BowView();
 		},
 	});
 
@@ -19,11 +24,12 @@ $(document).ready(function() {
 	var A2Router = Backbone.Router.extend({
 		routes : {
 			'' : 'regionPage',
+			'instance/:instance_id' : 'resourcePage',
 			'logout' : 'logoutAction',
 			'service' : 'servicePage',
 			'alert' : 'alertPage',
 			'region/:region' : 'regionPage',
-			'services/:name' : 'specificServicePage'
+			'service/:service_name' : 'specificServicePage'
 		},
 
 		logoutAction : function() {
@@ -36,12 +42,29 @@ $(document).ready(function() {
 			});
 		},
 
+		resourcePage : function(instance_id) {
+			appView.instances.url = 'instance/' + instance_id;
+			appView.instanceList.removeAll();
+			appView.arrow.render();
+			appView.bow.removeAll();
+			appView.resourceList.render();
+
+			// for sample chart
+
+		
+		},
+
 		servicePage : function() {
 			appView.serviceList.render();
+			appView.arrow.render();
+			appView.bow.render();
 		},
-		
-		specificServicePage: function(name) {
-			console.log(name);	
+
+		specificServicePage : function(service_name) {
+			appView.instances.url = 'instances/service/' + service_name;
+			appView.instanceList.render();
+			appView.arrow.render();
+			appView.bow.render();
 		},
 
 		alertPage : function() {
@@ -51,15 +74,17 @@ $(document).ready(function() {
 			if (region === undefined) {
 				region = 'global';
 			}
-			
-			appView.instances.url = '/instances/' + region;
+
+			appView.instances.url = '/instances/region/' + region;
 			appView.instanceList.render();
+			appView.arrow.render();
+			appView.bow.render();
 		},
 	});
 
 	var appRouter = new A2Router();
 	window.router = appRouter;
-	
+
 	Backbone.history.start();
 });
 
