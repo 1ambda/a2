@@ -85,91 +85,91 @@ function createDummyServices() {
 function createDummyResources() {
 	var chartData = [{
 		"year" : "1950",
-		"value" : -0.307
+		"value" : 0.307
 	}, {
 		"year" : "1951",
-		"value" : -0.168
+		"value" : 0.168
 	}, {
 		"year" : "1952",
-		"value" : -0.073
+		"value" : 0.073
 	}, {
 		"year" : "1953",
-		"value" : -0.027
+		"value" : 0.027
 	}, {
 		"year" : "1954",
-		"value" : -0.251
+		"value" : 0.251
 	}, {
 		"year" : "1955",
-		"value" : -0.281
+		"value" : 0.281
 	}, {
 		"year" : "1956",
-		"value" : -0.348
+		"value" : 0.348
 	}, {
 		"year" : "1957",
-		"value" : -0.074
+		"value" : 0.074
 	}, {
 		"year" : "1958",
-		"value" : -0.011
+		"value" : 0.011
 	}, {
 		"year" : "1959",
-		"value" : -0.074
+		"value" : 0.074
 	}, {
 		"year" : "1960",
-		"value" : -0.124
+		"value" : 0.124
 	}, {
 		"year" : "1961",
-		"value" : -0.024
+		"value" : 0.024
 	}, {
 		"year" : "1962",
-		"value" : -0.022
+		"value" : 0.022
 	}, {
 		"year" : "1963",
 		"value" : 0
 	}, {
 		"year" : "1964",
-		"value" : -0.296
+		"value" : 0.296
 	}, {
 		"year" : "1965",
-		"value" : -0.217
+		"value" : 0.217
 	}, {
 		"year" : "1966",
-		"value" : -0.147
+		"value" : 0.147
 	}, {
 		"year" : "1967",
-		"value" : -0.15
+		"value" : 0.15
 	}, {
 		"year" : "1968",
-		"value" : -0.16
+		"value" : 0.16
 	}, {
 		"year" : "1969",
-		"value" : -0.011
+		"value" : 0.011
 	}, {
 		"year" : "1970",
-		"value" : -0.068
+		"value" : 0.068
 	}, {
 		"year" : "1971",
-		"value" : -0.19
+		"value" : 0.19
 	}, {
 		"year" : "1972",
-		"value" : -0.056
+		"value" : 0.056
 	}, {
 		"year" : "1973",
 		"value" : 0.077
 	}, {
 		"year" : "1974",
-		"value" : -0.213
+		"value" : 0.213
 	}, {
 		"year" : "1975",
-		"value" : -0.17
+		"value" : 0.17
 	}, {
 		"year" : "1976",
-		"value" : -0.254
+		"value" : 0.254
 	}, {
 		"year" : "1977",
 		"value" : 0.019
 	}, {
 		"year" : "1978",
-		"value" : -0.063
+		"value" : 0.063
 	}, {
 		"year" : "1979",
 		"value" : 0.05
@@ -187,10 +187,10 @@ function createDummyResources() {
 		"value" : 0.177
 	}, {
 		"year" : "1984",
-		"value" : -0.021
+		"value" : 0.021
 	}, {
 		"year" : "1985",
-		"value" : -0.037
+		"value" : 0.037
 	}, {
 		"year" : "1986",
 		"value" : 0.03
@@ -256,13 +256,24 @@ function createDummyResources() {
 	return chartData;
 };
 
-function createDummyChart(chart_name) {
+function createResourceChart(data, name, color) {
+
+	var map = {
+		darkgreen : '#006400',
+		olive: '#808000',
+		dodgerblue: '#4682B4',
+		teal : '#008080',
+		purple : '#800080',
+		mediumpurple : '#9370DB',
+		orangered : '#FF4500'
+	};
+
 	var chart;
 	var graph;
 
 	var chartData = createDummyResources();
 
-	AmCharts.ready(function() {
+	function work() {
 		// SERIAL CHART
 		chart = new AmCharts.AmSerialChart();
 		chart.pathToImages = "javascripts/amcharts/images/";
@@ -296,7 +307,8 @@ function createDummyChart(chart_name) {
 		graph = new AmCharts.AmGraph();
 		graph.type = "smoothedLine";
 		// this line makes the graph smoothed line.
-		graph.lineColor = "#d1655d";
+		// graph.lineColor = "#d1655d";
+		graph.lineColor = map[color];
 		graph.negativeLineColor = "#637bb6";
 		// this line makes the graph to change color when it drops below 0
 		graph.bullet = "round";
@@ -323,9 +335,10 @@ function createDummyChart(chart_name) {
 		chart.creditsPosition = "bottom-right";
 
 		// WRITE
-		chart.write(chart_name);
-		chart.validateNow();
-	});
+		chart.write(name);
+	};
+
+	work();
 
 	// this method is called when chart is first inited as we listen for "dataUpdated" event
 	function zoomChart() {
@@ -334,3 +347,4 @@ function createDummyChart(chart_name) {
 	};
 
 };
+

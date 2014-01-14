@@ -29,7 +29,7 @@ window.InstanceItem = Backbone.View.extend({
 });
 
 window.InstanceList = Backbone.View.extend({
-	el : $('#target'),
+	el : '#target',
 	template : _.template($('#tmpl_instance_list').html()),
 
 	initialize : function() {
@@ -41,7 +41,7 @@ window.InstanceList = Backbone.View.extend({
 	render : function() {
 		this.removeAll();
 		var tmpl = this.template();
-		$(this.el).html(tmpl);
+		this.$el.html(tmpl);
 		this.collection.fetch({
 			reset : true
 		});
@@ -60,7 +60,7 @@ window.InstanceList = Backbone.View.extend({
 	},
 
 	removeAll : function() {
-		$(this.el).html('');
+		this.$el.html('');
 		if (this.views.length) {
 			_.each(this.views, function(item) {
 				item.remove();

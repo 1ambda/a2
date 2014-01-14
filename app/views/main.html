@@ -112,24 +112,27 @@
 
 				</div>
 				<br/>
-				<div class="row">
-					<div id="target">
-
-						<!-- sample chart -->
-						<!-- sample chart end -->
-					</div>
-					<!-- target -->
+				<div id="target" class="row">
+					
 				</div>
+				<!-- target -->
 			</div>
 			<!-- container -->
 		</div>
 		<!-- content -->
 
 		<!-- template zone -->
-		<script type="text/template" id="tmpl_resource_list">
-			<div class="small-12 medium-6 large-4">
-			<h4>Network Out</h4>
-			<div id="chart1" style="width:100%; height:300px;"></div>
+		<script type="text/template" id="tmpl_resource_item">
+			<div class="small-12 medium-6 large-4 columns">
+			<h4><%= resource_name %></h4>
+			<div id="chart_<%= chart_name %>" style="width:100%; height:220px;"></div>
+			</div>
+		</script>
+
+		<script type="text/template" id="tmpl_dashboard_item">
+			<div class="small-12 medium-3 large-4 columns">
+			<h4><%= resource_name %></h4>
+			<div id="chart_<%= chart_name %>" style="width:100%; height:220px;"></div>
 			</div>
 		</script>
 
