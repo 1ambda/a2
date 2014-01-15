@@ -72,7 +72,7 @@ window.ServiceList = Backbone.View.extend({
 	addAll : function() {
 		this.rendered.each(this.addOne, this);
 	},
-
+	
 	filter : function() {
 		this.service_names = this.collection.pluck('service_name');
 

@@ -113,7 +113,7 @@
 				</div>
 				<br/>
 				<div id="target" class="row">
-					
+
 				</div>
 				<!-- target -->
 			</div>
@@ -140,7 +140,7 @@
 			<div class="small-12 medium-11 large-9 columns">
 			<h4>Target</h4>
 			<br/>
-			<table>
+			<table cellspacing='0'>
 			<thead>
 			<tr>
 			<th>Service Name</th>
@@ -149,6 +149,7 @@
 			<th>Instance State</th>
 			<th>Region</th>
 			<th>Public IP</th>
+			<th>Private IP</th>
 			<th>Security Group</th>
 			</tr>
 			</thead>
@@ -166,6 +167,7 @@
 			<td><%= instance_state %></td>
 			<td><%= region %></td>
 			<td><%= public_ip %></td>
+			<td><%= private_ip %></td>
 			<td><%= security_group %></td>
 		</script>
 
@@ -173,7 +175,7 @@
 			<div class="small-12 medium-11 large-9 columns">
 			<h4>Target</h4>
 			<br/>
-			<table>
+			<table cellspacing='0'>
 			<thead>
 			<tr>
 			<th>Service Name</th>
@@ -311,7 +313,7 @@
 		<script src="javascripts/amcharts/amcharts.js" type="text/javascript"></script>
 		<script src="javascripts/amcharts/serial.js" type="text/javascript"></script>
 
-		<script src="javascripts/dummy.js"></script>
+		<script src="javascripts/chart.js"></script>
 		<script src="javascripts/backbone/services.js"></script>
 		<script src="javascripts/backbone/instances.js"></script>
 		<script src="javascripts/backbone/resources.js"></script>
