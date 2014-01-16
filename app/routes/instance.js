@@ -2,21 +2,6 @@ var Instance = require('../models/instance');
 var Lock = require('../models/lock');
 var _ = require('underscore');
 
-var CpuUtilization = require('../models/cpu_utilization');
-var DiskReadBytes = require('../models/disk_read_bytes');
-var DiskWriteBytes = require('../models/disk_write_bytes');
-var DiskReadOps = require('../models/disk_read_ops');
-var DiskWriteOps = require('../models/disk_write_ops');
-var NetworkIn = require('../models/network_in');
-var NetworkOut = require('../models/network_out');
-
-/*
- * TODO : Make getResource Routing
- * TODO : Resource.js(Backbone.Collection) Refactoring
- * TODO : MongoDB Date Compare Query TEST 
- * db.sample.find({dt: {$gt : new Date("Wed Jan 15 2014 23:41:00 GMT+0900 (대한민국 표준시)"), $lt : new Date("Wed Jan 15 2014 23:44:00 GMT+0900 (대한민국 표준시)")}})
- */
-
 exports.readByRegion = function(req, res) {
 	var region = req.params.region;
 	var query = makeQuery(req.params.region);

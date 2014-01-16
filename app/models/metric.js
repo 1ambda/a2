@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var MetricSchema = new mongoose.Schema({
 	instance_id: String,
-	time_stamp: String,
+	time_stamp: Date,
 
 	instance_type: String,
 	service_name: String,	

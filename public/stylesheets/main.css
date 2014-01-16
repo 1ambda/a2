@@ -28,6 +28,34 @@
 	font-size: 12px;
 }
 
+.resource_item {
+	padding-top: 5px;
+}
+
+.resource_item ul{
+	margin-bottom: 0px;
+}
+
+.resource_item ul h4{
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+ul.f-dropdown li {
+	font-size: 11px;
+}
+
+.resource_item .button {
+	
+	margin-right: 33px;
+	margin-bottom: 0px;
+	padding-left: 13px;
+	padding-right: 10px;
+	
+	margin-top: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;}
+
 table a:link {
 	color: #666;
 	font-weight: bold;

@@ -1,17 +1,8 @@
-window.Resource = Backbone.Model.extend({
-
+window.Dashboard = Backbone.Model.extend({
 });
 
-window.Resources = Backbone.Collection.extend({
-	model : Resource
-});
-
-window.ResourceItem = Backbone.View.extend({
-	template : _.template($('#tmpl_resource_item').html()),
-
-	intialize : function() {
-		this.chart = null;
-	},
+window.DashboardView = Backbone.View.extend({
+	template : _.template($('#tmpl_dashboard_item').html()),
 
 	render : function() {
 		var tmpl = this.template(this.model.toJSON());
@@ -20,8 +11,21 @@ window.ResourceItem = Backbone.View.extend({
 	}
 });
 
-window.DashboardItem = Backbone.View.extend({
-	template : _.template($('#tmpl_dashboard_item').html()),
+window.Resource = Backbone.Model.extend({
+
+});
+
+window.Resources = Backbone.Collection.extend({
+	model : Resource
+});
+
+
+window.ResourceItem = Backbone.View.extend({
+	template : _.template($('#tmpl_resource_item').html()),
+
+	initialize : function() {
+
+	}, 
 
 	render : function() {
 		var tmpl = this.template(this.model.toJSON());
@@ -32,78 +36,103 @@ window.DashboardItem = Backbone.View.extend({
 
 window.ResourceList = Backbone.View.extend({
 	el : '#target',
+	
+	events:  {
+		'click .range' : 'clicked',
+	},	
+	
+	clicked : function(e) {
+		var metric = $(e.target).closest('ul').attr('metric');
+		var location = window.location.href;
+		var instance = location.split('/').pop(); 
+	
+		console.log(instance);
+		console.log(metric); 
+	},
 
 	initialize : function() {
 		this.listenTo(this.collection, 'add', this.addOne);
 		this.listenTo(this.collection, 'reset', this.addAll);
 		this.views = [];
-		this.dummyData = createDummyResources();
+		this.dashViews = [];
+		this.dashboard = new Dashboard();
+	},
+	
+	addDashboard : function() {
+		var view = new DashboardView({
+			model: this.dashboard,
+		});
+		
+		this.$el.append(view.render().el);
+		this.dashViews.push(view);
 	},
 
 	addOne : function(item) {
-		var view = null;
-		if (/^dash/i.test(item.get('resource_name'))) {
-			view = new DashboardItem({
-				model : item
-			});
-		} else {
-			view = new ResourceItem({
-				model : item
-			});
-		}
+        var view = new ResourceItem({
+                model : item,
+        });
+        
+		this.$el.append(view.render().el);
+		
+        
+        var chartDatas = new ChartDatas();
+		var defaultTime = '1'; // last 1 hour
+		chartDatas.url = '/resources/' + view.model.get('metric') + '/' + view.model.get('instance') + '/' + defaultTime;
+        
+        view.chartView = new ChartView({
+        	collection: chartDatas
+        });
+        
+        view.chartView.color = item.get('color');
+        view.chartView.target = 'chart_' + item.get('metric');
+        view.chartView.render();
 
 		this.views.push(view);
-		this.$el.append(view.render().el);
-		if (!/^dash/i.test(item.get('resource_name'))) {
-			view.chart = createResourceChart(this.dummyData, item.get('color'));
-			view.chart.write('chart_' + item.get('chart_name'));
-		}
 	},
 
 	addAll : function() {
+		this.addDashboard();
 		this.collection.each(this.addOne, this);
 	},
 
-	render : function() {
+	render : function(instance_id) {
+		
 		this.removeAll();
-		// this.collection.fetch();
 		this.collection.reset([{
-			resource_name : 'Dashboard1',
-			chart_name : 'dash1'
+			title : 'CPU Utilization',
+			metric : 'cpu_utilization',
+			color : 'orangered',
+			instance : instance_id,
 		}, {
-			resource_name : 'Dashboard2',
-			chart_name : 'dash2'
-		}, 
-		{
-			resource_name : 'CPU Utilization',
-			chart_name : 'cpu_utilization',
-			color : 'orangered'
+			title : 'Network In',
+			metric : 'network_in',
+			color : 'darkgreen',
+			instance : instance_id,
 		}, {
-			resource_name : 'Network In',
-			chart_name : 'network_in',
-			color : 'darkgreen'
-
+			title : 'Disk Read Bytes',
+			metric : 'disk_read_bytes',
+			color : 'dodgerblue',
+			instance : instance_id,
 		}, {
-			resource_name : 'Disk Read Bytes',
-			chart_name : 'disk_read_bytes',
-			color : 'dodgerblue'
+			title : 'Disk Read Ops',
+			metric : 'disk_read_ops',
+			color : 'purple',
+			instance : instance_id,
 		}, {
-			resource_name : 'Disk Read Ops',
-			chart_name : 'disk_read_ops',
-			color : 'purple'
+			title : 'Network Out',
+			metric : 'network_out',
+			color : 'olive',
+			instance : instance_id,
 		}, {
-			resource_name : 'Network Out',
-			chart_name : 'network_out',
-			color : 'olive'
-
+			title : 'Disk Write Bytes',
+			metric : 'disk_write_bytes',
+			color : 'teal',
+			instance : instance_id,
 		}, {
-			resource_name : 'Disk Write Bytes',
-			chart_name : 'disk_write_bytes',
-			color : 'teal'
-		}, {
-			resource_name : 'Disk Write Ops',
-			chart_name : 'disk_write_ops',
-			color : 'mediumpurple'
+			title : 'Disk Write Ops',
+			metric : 'disk_write_ops',
+			color : 'mediumpurple',
+			instance : instance_id,
 		}, ]);
 	},
 
@@ -111,9 +140,22 @@ window.ResourceList = Backbone.View.extend({
 		if (this.views.length) {
 			_.each(this.views, function(item) {
 				item.remove();
+				if (item.chartView) {
+					item.chartView.removeAll();				}
 			});
 
 			this.views.length = 0;
 		}
-	}
+		
+		if (this.dashViews.length) {
+			_.each(this.views, function(item) {
+				item.remove();
+			});
+
+			this.dashViews.length = 0;
+		}
+	},
+	
+
+
 });
