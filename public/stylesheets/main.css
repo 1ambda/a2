@@ -42,7 +42,10 @@
 }
 
 ul.f-dropdown li {
-	font-size: 11px;
+	font-size: 11px;}
+
+.title_unit {
+	font-size: 15px;
 }
 
 .resource_item .button {

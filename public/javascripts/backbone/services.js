@@ -45,12 +45,13 @@ window.ServiceList = Backbone.View.extend({
 		this.rendered = new RenderedServices();
 		this.listenTo(this.collection, 'reset', this.filter);
 		this.listenTo(this.rendered, 'reset', this.addAll);
-		this.views = [];
-		this.service_names = [];
-		this.services = [];
 	},
 
 	render : function() {
+		this.views = [];
+		this.service_names = [];
+		this.services = [];
+		
 		var tmpl = this.template();
 		$(this.el).html(tmpl);
 

@@ -9,31 +9,77 @@ var DiskWriteOps = require('../models/disk_write_ops');
 var NetworkIn = require('../models/network_in');
 var NetworkOut = require('../models/network_out');
 
-// GET '/resources/:metric/:instance/:start/:end'
-exports.read = function(req, res) {
-	
-	var metric = req.params.metric;
-	var instance = req.params.instance;
-	var time = req.params.start;
-	
-	res.send();
+var MetricCollection = {
+	cpu_utilization : CpuUtilization,
+	network_in : NetworkIn,
+	network_out : NetworkOut,
+	disk_read_bytes : DiskReadBytes,
+	disk_write_bytes : DiskWriteBytes,
+	disk_read_ops : DiskReadOps,
+	disk_write_ops : DiskWriteOps
 };
 
-/*
- * TODO : Make getResource Routing
- * TODO : Resource.js(Backbone.Collection) Refactoring
- * TODO : MongoDB Date Compare Query TEST
- * db.sample.find({dt: {$gt : new Date("Wed Jan 15 2014 23:41:00 GMT+0900 (대한민국 표준시)"), $lt : new Date("Wed Jan 15 2014 23:44:00 GMT+0900 (대한민국 표준시)")}})
- */
+// GET '/resources/:metric/:instance/:time'
+// the variable time means 'from'
+exports.read = function(req, res) {
 
-/* Query
- *
- db.cpuutilizations.find({
- service_name: 'Park Hoon',
- time_stamp: {
- $gt : new Date('Thu Jan 16 2014 09:28:00 GMT+0900'),
- $lt : new Date('Thu Jan 16 2014 09:30:00 GMT+0900')
- }
- })
- *
- */
+	var metric = req.params.metric;
+	var instance = req.params.instance;
+	var time = req.params.time;
+
+	var start = getStartTime(time);
+	var end = new Date();
+
+	MetricCollection[metric].find({
+		instance_id : instance,
+		time_stamp : {
+			$gt : new Date(start),
+			$lt : new Date(end)
+		}, 
+	}, {unit:1, average:1, time_stamp:1 }, function(err, stat) {
+		if (err) {
+			console.log(err);
+		} else {
+			var count = _.size(stat);
+			console.log(metric + '[' + instance + '] :' + count);
+			res.send(
+				stat
+			);
+		}
+	});
+};
+
+function getStartTime(text) {
+
+	var time = new Date();
+
+	switch(text) {
+		case 'Last1Hour':
+			time.setHours(time.getHours() - 1);
+			break;
+		case 'Last3Hours':
+			time.setHours(time.getHours() - 3);
+			break;
+		case 'Last6Hours':
+			time.setHours(time.getHours() - 6);
+			break;
+		case 'Last12Hours':
+			time.setHours(time.getHours() - 12);
+			break;
+		case 'Last1Day':
+			time.setHours(time.getHours() - 24);
+			break;
+		case 'Last3Days':
+			time.setHours(time.getHours() - 72);
+			break;
+		case 'Last1Week':
+			time.setHours(time.getHours() - 168);
+			break;
+		case 'Last1Month':
+			time.setMonth(time.getMonth() - 1);
+			break;
+	};
+
+	return time;
+};
+
