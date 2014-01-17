@@ -49,6 +49,12 @@ window.ResourceList = Backbone.View.extend({
 		var instance = window.location.href.split('/').pop();
 		var time = $(dom).html().replace(/\s/g, "");
 		
+		var context = $(dom).closest('#chart_view');
+		var button = $('#btn_range', context);
+		var string = $(dom).text().split('Last ').pop();
+		button.text(string);
+		
+		
 		var selectedView = _.find(this.views, function(item) {
 			if (item.model.get('metric') == metric ) {
 				return true;

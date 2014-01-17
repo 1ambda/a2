@@ -31,6 +31,7 @@ window.ChartView = Backbone.View.extend({
 
 	drawChart : function() {
 		this.chart.graphs[0].lineColor = map[this.color];
+		this.chart.chartCursor.categoryBalloonColor = map[this.color];
 		this.chart.dataProvider = this.collection.toJSON();
 		this.chart.write(this.target);
 		this.chart.numberFormatter = {
@@ -114,6 +115,7 @@ function createChart() {
 
 	// GRAPH
 	graph = new AmCharts.AmGraph();
+	// graph.type = "line";
 	graph.type = "smoothedLine";
 	// this line makes the graph smoothed line.
 	graph.negativeLineColor = "#637bb6";
@@ -127,6 +129,7 @@ function createChart() {
 	graph.valueField = "average";
 	// graph.balloonText = "[[category]]<br><br><b><span style='font-size:14px;'>[[value]]</span></b>";
 	graph.balloonText = "<b><span style='font-size:14px;'>[[value]]</span></b>";
+	// graph.balloonColor = "#637bb6";
 	chart.addGraph(graph);
 
 	// CURSOR

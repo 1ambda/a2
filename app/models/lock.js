@@ -11,7 +11,9 @@ var LockSchema = new mongoose.Schema({
 	california: { type: Number, default :0 }, 
 	oregon: { type: Number, default :0 }, 
 	locked: Boolean,
-	updated: { type: Date, default: Date.now }
+	updated: { type: Date, default: Date.now },
+	polling_range: Number,
+	polling_end_time: Date
 });
 
 var Lock = mongoose.model('Lock', LockSchema);

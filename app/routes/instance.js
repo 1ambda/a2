@@ -4,13 +4,17 @@ var _ = require('underscore');
 
 exports.readByRegion = function(req, res) {
 	var region = req.params.region;
-	var query = makeQuery(req.params.region);
 
 	getLock(function(lock) {
 		if (!lock) {
 			res.send();
 		}
+		
+		if (lock.locked) {
+			console.log('locked');
+		}
 
+		var query = makeQuery(req.params.region, lock.updated);
 		var documentNumber = lock[region];
 
 		Instance.find(query).sort({
@@ -38,9 +42,18 @@ exports.readByService = function(req, res) {
 			res.send();
 		}
 
-		var documentNumber = lock.global;
+		if (lock.locked) {
+			console.log('locked');
+		}
 
-		Instance.find().sort({
+		var documentNumber = lock.global;
+		console.log(lock.updated);
+
+		Instance.find({
+			updated : {
+				$lt : lock.updated
+			}
+		}).sort({
 			updated : -1
 		}).limit(documentNumber).exec(function(err, docs) {
 			if (err) {
@@ -56,23 +69,15 @@ exports.readByService = function(req, res) {
 	});
 };
 
-exports.readById = function(req, res) {
-	console.log('readById : ' + req.params.id);
+function makeQuery(region, updated) {
 
-	getLock(function(lock) {
-		if (!lock) {
-			res.send();
-		}
-
-		res.send();
-	});
-
-};
-
-function makeQuery(region) {
+	console.log(updated);
 
 	var query = {
-		region : region
+		region : region,
+		updated : {
+			$lt : updated
+		}
 	};
 
 	if (region == 'global') {
@@ -95,11 +100,6 @@ function getLock(callback) {
 		}
 
 		var lock = docs[0];
-
-		if (lock.locked) {
-			console.log('locked');
-			return null;
-		}
 
 		callback(lock);
 	});

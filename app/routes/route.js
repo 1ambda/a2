@@ -13,7 +13,7 @@ var routing = function(app) {
 	// instance
 	app.get('/instances/region/:region', instance.readByRegion);
 	app.get('/instances/service/:service', instance.readByService);
-	app.get('/instance/:id', instance.readById);
+	// app.get('/instance/:id', instance.readById);
 	app.get('/resources/:metric/:instance/:time', resource.read);
 };
 

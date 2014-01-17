@@ -12,16 +12,6 @@ $(document).ready(function() {
 				collection : this.services
 			});
 
-			// this.resourcesArray = [];
-			// for(var i = 0; i < 7; i++) {
-				// resourcesArray[i] = new Resources();
-				// resourcesArray[i].metric = MetricNames[i];
-				// resourcesArray[i].url = function() {
-					// var url = this.metric;
-					// return rul;
-				// };
-			// }
-
 			this.resources = new Resources();
 			this.resourceList = new ResourceList({
 				collection : this.resources
@@ -59,6 +49,8 @@ $(document).ready(function() {
 		resourcePage : function(instance_id) {
 			// appView.instances.url = 'instance/' + instance_id;
 			appView.instanceList.removeAll();
+			
+			// appView.arrow.template = _.template($('#tmpl_resource_arrow').html());
 			appView.arrow.render();
 			appView.bow.removeAll();
 			appView.resourceList.render(instance_id);
