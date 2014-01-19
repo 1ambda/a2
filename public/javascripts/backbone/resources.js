@@ -142,7 +142,7 @@ window.ResourceList = Backbone.View.extend({
 		}, {
 			title : 'Disk Read',
 			metric : 'disk_read_ops',
-			color : 'purple',
+			color : 'darkslateblue',
 			instance : instance_id,
 			unit: '(Ops)',
 			precise: 0

@@ -17,6 +17,7 @@
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.css" />
 		<link rel="stylesheet" href="foundation/css/foundation.css" />
 		<link rel="stylesheet" href="stylesheets/style.css" />
 		<link rel="stylesheet" href="stylesheets/main.css" />
@@ -99,10 +100,8 @@
 		</nav>
 		<!-- nav -->
 
-		<div id="sidebar" class="large-2 medium-3 columns">
-			<div id="arrow" class="hide-for-small">
+		<div id="arrow" >
 
-			</div>
 		</div>
 		<!-- sidebar -->
 
@@ -122,6 +121,136 @@
 		<!-- content -->
 
 		<!-- template zone -->
+		<script type="text/template" id="tmpl_service_arrow">
+			<div class="instance_arrow large-2 medium-3 columns">
+			<div class="hide-for-small">
+			<nav>
+			<ul class="side-nav">
+			<h5>The Arrows</h5>
+			<li>
+			<a class="arrow_attr" data-search="">service <span class="label secondary">text</span></a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">instance-number</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">alert-number</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">running</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">pending</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">stopped</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">terminated</a>
+			</li>
+			<li>
+			<a data-search=""></a>
+			</li>
+			<li class="divider"></li>
+			<li class="empty"></li>
+			</ul>
+			</nav>
+			</div>
+			</div>
+		</script>
+
+		<script type="text/template" id="tmpl_instance_arrow">
+			<div class="instance_arrow large-2 medium-3 columns">
+			<div class="hide-for-small">
+			<nav>
+			<ul class="side-nav">
+			<h5>The Arrows</h5>
+			<li>
+			<a class="arrow_attr" data-search="">service</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">instance-id</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">instance-type</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">instance-state</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">region</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">public-ip</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">security-group</a>
+			</li>
+			<li>
+			<a data-search=""></a>
+			</li>
+			<li class="divider"></li>
+			<li class="heading">
+			Regions
+			</li>
+			<li>
+			<a class="arrow_attr_region" data-search="">global</a>
+			</li>
+			<li>
+			<a class="arrow_attr_region" data-search="">tokyo</a>
+			</li>
+			<li>
+			<a class="arrow_attr_region" data-search="">singapore</a>
+			</li>
+			<li>
+			<a class="arrow_attr_region" data-search="">sydney</a>
+			</li>
+			<li>
+			<a class="arrow_attr_region" data-search="">ireland</a>
+			</li>
+			<li>
+			<a class="arrow_attr_region" data-search="">saopaulo</a>
+			</li>
+			<li>
+			<a class="arrow_attr_region" data-search="">virginia</a>
+			</li>
+			<li>
+			<a class="arrow_attr_region" data-search="">california</a>
+			</li>
+			<li>
+			<a class="arrow_attr_region" data-search="">oregon</a>
+			</li>
+
+			<li class="divider"></li>
+			<li class="heading">
+			Instance Types
+			</li>
+			<li>
+			<a class="arrow_attr_type" data-search="">General : m1, m3</a>
+			</li>
+			<li>
+			<a class="arrow_attr_type" data-search="">Compute : c1, c3, cc2</a>
+			</li>
+			<li>
+			<a class="arrow_attr_type" data-search="">Memory : m2, cr1</a>
+			</li>
+			<li>
+			<a class="arrow_attr_type" data-search="">Storage : hi1, hs1, i2</a>
+			</li>
+			<li>
+			<a class="arrow_attr_type" data-search="">Micro : t1</a>
+			</li>
+			<li>
+			<a class="arrow_attr_type" data-search="">GPU : cg1, g2 </a>
+			</li>
+			<li class="divider"></li>
+			<li class="empty"></li>
+			</ul>
+			</nav>
+			</div>
+			</div>
+		</script>
+
 		<script type="text/template" id="tmpl_resource_item">
 			<div id="chart_view">
 			<div class="small-12 medium-6 large-4 columns">
@@ -130,7 +259,6 @@
 			<h5><%= title %> &nbsp;<span class="title_unit"><%= unit %></span></h5>
 			</ul>
 			<ul class="right">
-			<!-- <a id="btn_range" href="#" class="button success tiny radius" data-dropdown="drop_<%= metric %>">Range &nbsp;&raquo;</a> -->
 			<a id="btn_range" href="#" class="button success tiny radius" data-dropdown="drop_<%= metric %>">3 Hours</a>
 			</ul>
 			</div>
@@ -156,7 +284,7 @@
 		</script>
 
 		<script type="text/template" id="tmpl_instance_list">
-			<div class="small-12 medium-11 large-9 columns">
+			<div class="small-12 medium-12 large-12 columns">
 			<h4>Target</h4>
 			<br/>
 			<table cellspacing='0'>
@@ -191,7 +319,7 @@
 		</script>
 
 		<script type="text/template" id="tmpl_service_list">
-			<div class="small-12 medium-11 large-9 columns">
+			<div class="small-12 medium-12 large-12 columns">
 			<h4>Target</h4>
 			<br/>
 			<table cellspacing='0'>
@@ -216,7 +344,7 @@
 		<script type="text/template" id="tmpl_service_item">
 			<td><%= service_name %></td>
 			<td><%= instance_number %></td>
-			<td>Impl</td>
+			<td>0</td>
 			<td><%= state_running %></td>
 			<td><%= state_pending %></td>
 			<td><%= state_stopped %></td>
@@ -224,7 +352,7 @@
 		</script>
 
 		<script type="text/template" id="tmpl_bow">
-			<div class="small-12 medium-11 large-9 columns">
+			<div class="bow small-12 medium-12 large-12 columns">
 			<div class="row collapse">
 			<h4>Bow</h4>
 			<br/>
@@ -239,98 +367,35 @@
 		</script>
 
 		<script type="text/template" id="tmpl_resource_arrow">
-			<div class="sidebar">
-			<nav>
-			<dl class="tabs vertical" data-tab>
-			<dd class="active"><a href="#panel1a">Tab 1</a></dd>
-			<dd><a href="#panel2a">Tab 2</a></dd>
-			<dd><a href="#panel3a">Tab 3</a></dd>
-			<dd><a href="#panel4a">Tab 4</a></dd>
-			</nav>
+			<div class="resource_arrow hide-for-small large-2 medium-3 columns">
+			<dl class="tabs vertical text-center" data-tab>
+			<dd class="header"></dd>
+			<dd class="active">
+			<a href="#" class="large-arrow-link"><i class="fa fa-desktop fa-3x"></i><p class="large-arrow">ALL</p></a>			</dd>
+			<dd>
+			<a href="#" class="large-arrow-link"><i class="fa fa-bar-chart-o fa-3x"></i><p class="large-arrow">CPU Utilization</p></a>
+			</dd>
+			<dd>
+			<a href="#" class="large-arrow-link"><i class="fa fa-save fa-3x"></i><p class="large-arrow">Storage Access</p></a>
+			</dd>
+			<dd>
+			<a href="#" class="large-arrow-link"><i class="fa fa-rss fa-3x"></i><p class="large-arrow">Network Traffic</p></a>
+			</dd>
+			<dd class="empty hide-for-small"></dd>
 			</dl>
 			</div>
-		</script>
-
-		<script type="text/template" id="tmpl_arrow">
-			<div class="sidebar">
-			<nav>
-			<ul class="side-nav">
-			<h5>The Arrows</h5>
-			<li>
-			<a href="#" data-search="">name</a>
-			</li>
-			<li>
-			<a href="#" data-search="">instance-id</a>
-			</li>
-			<li>
-			<a href="#" data-search="">instance-type</a>
-			</li>
-			<li>
-			<a href="#" data-search="">instance-state</a>
-			</li>
-			<li>
-			<a href="#" data-search="">region</a>
-			</li>
-			<li>
-			<a href="#" data-search="">public-ip</a>
-			</li>
-			<li>
-			<a href="#" data-search="">security-group</a>
-			</li>
-			<li>
-			<a href="#" data-search=""></a>
-			</li>
-			<li class="divider"></li>
-			<li class="heading">
-			Regions
-			</li>
-			<li>
-			<a href="#" data-search="">eu-west-1</a>
-			</li>
-			<li>
-			<a href="#" data-search="">sa-east-1</a>
-			</li>
-			<li>
-			<a href="#" data-search="">ap-northeast-1</a>
-			</li>
-			<li>
-			<a href="#" data-search="">ap-southeast-1</a>
-			</li>
-			<li>
-			<a href="#" data-search="">us-west-1</a>
-			</li>
-			<li>
-			<a href="#" data-search="">us-west-2</a>
-			</li>
-			<li>
-			<a href="#" data-search="">us-east-1</a>
-			</li>
-
-			<li class="divider"></li>
-			<li class="heading">
-			Instance Types
-			</li>
-			<li>
-			<a href="#" data-search="">General : m1, m3</a>
-			</li>
-			<li>
-			<a href="#" data-search="">Compute : c1, c3, cc2</a>
-			</li>
-			<li>
-			<a href="#" data-search="">Memory : m2, cr1</a>
-			</li>
-			<li>
-			<a href="#" data-search="">Storage : hi1, hs1, i2</a>
-			</li>
-			<li>
-			<a href="#" data-search="">Micro : t1</a>
-			</li>
-			<li>
-			<a href="#" data-search="">GPU : cg1, g2 </a>
-			</li>
-			<li class="divider"></li>
-			</ul>
-			</nav>
+			<!-- small resource arrow -->
+			<div class="resource_arrow_small show-for-small large-2 medium-3 columns">
+			<dl class="tabs vertical text-center" data-tab>
+			<dd><a href="#" class="active"><i class="fa fa-desktop fa-2x"></i><span>ALL Resources</span></a>			</dd>
+			<dd><a href="#"><i class="fa fa-bar-chart-o fa-2x"></i><span>CPU Utilization</span></a>
+			</dd>
+			<dd><a href="#"><i class="fa fa-save fa-2x"></i><span>Storage Access</span></a>
+			</dd>
+			<dd><a href="#"><i class="fa fa-rss fa-2x"></i><span>Network Traffic</span></a>
+			</dd>
+			<dd class="empty hide-for-small fa-2x"></dd>
+			</dl>
 			</div>
 		</script>
 

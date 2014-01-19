@@ -13,7 +13,8 @@ var map = {
 	teal : '#008080',
 	purple : '#800080',
 	mediumpurple : '#9370DB',
-	orangered : '#FF4500'
+	orangered : '#FF4500',
+	darkslateblue : '#483D8B'
 };
 
 window.ChartView = Backbone.View.extend({

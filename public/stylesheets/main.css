@@ -1,23 +1,180 @@
-.sidebar {
-	padding: 15px;
-	font-family: 'Ubuntu', sans-serif;
+html, body {
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
 }
 
-.sidebar a {
+
+.nav-active {
+	background: #008cba;
+}
+
+.bow, .instance_arrow {
+	max-width: 50rem;
+}
+
+.instance_arrow a {
 	font-size: 12px;
 }
 
-#sidebar {
+.instance_arrow {
+	max-width: 230px;
 	background-color: #FAFAFA;
-	background-repeat: repeat-x;
+	/*background-color: #fbfbfb;*/
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.instance_arrow {
+	padding: 15px;
+	/*font-family: 'Open Sans', sans-serif;*/
+}
+
+.instance_arrow h5, .instance_arrow a, .instance_arrow li {
+	font-family: 'Ubuntu', sans-serif;
+	/*font-family: 'Open Sans', sans-serif;*/
+}
+
+#arrow ul {
+	padding-left: 15px;	
+}
+
+#arrow h5 {
+	font-size: 20px;
+}
+
+#arrow li.heading {
+	font-size: 18px;
+	padding-bottom: 5px;
+}
+
+#arrow li a{
+	font-size:13px;
+	padding-left: 14px;	
+}
+
+#arrow .label {
+	color: #777777;
+	margin-left: 3px;
+	border-radius: 3px;
 }
 
 .row {
-	max-width: 80rem;
+	max-width: 100rem;
+}
+
+.resource_arrow {
+	max-width: 210px;
+	padding: 0;
+}
+
+.resource_arrow_small {
+	padding: 0;
+}
+
+.tabs.vertical {
+	width: 100%;
+	float: none;
+}
+
+/* tabs style override */
+
+.tabs dd > a:hover, .tabs dd.active a {
+	/*background: #368a54;*/
+	background: #007295;
+	color: white;
+}
+
+.tabs dd.active a.large-arrow-link, .tabs dd.active > a.large-arrow-link:hover {	background: white;
+	color: #008cba;
+}
+
+.tabs dd.empty, .tabs dd a {
+	display: block;
+	/*background: #43ac6a;*/
+	background: #008cba;
+	color: white;
+	padding-top: 1rem;
+	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'Ubuntu', sans-serif;*/
+}
+
+.tabs dd {
+	background: #008cba;
+}
+
+.tabs dd a.large-arrow-link {
+	margin-left: 2rem;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.tabs dd.header {
+	display: block;
+	background: #008cba;
+	color: white;
+	padding-top: 140px;
+	padding-right: 2rem;
+	padding-bottom: 1rem;
+	padding-left: 2rem;
+}
+
+.tabs dd a p.large-arrow {
+	padding-top: 10px;
+	font-size: 15px;
+	margin: 0px;
+}
+
+.tabs dd a p.small-arrow {
+	font-size: 18px;
+}
+
+.tabs dd a i {
+	margin-right: 30px;
+	width: 30px;
+}
+
+.tabs dd a span {
+	font-size: 15px;
+}
+
+.top-bar .name h1 a {
+	/*font-family: 'Open Sans', sans-serif;*/
+	font-family: 'Ubuntu', sans-serif;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+.top-bar-section ul li > a {
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 14px;
+}
+
+#bow {
+	font-family: 'Ubuntu', sans-serif;
+}
+
+#bow input {
+	font-family: 'Open Sans', sans-serif;
 }
 
 #target {
 	overflow: auto;
+	/*font-family: 'Ubuntu', sans-serif;*/
+	font-family: 'Open Sans', sans-serif;
+}
+
+#target table {
+	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'Ubuntu', sans-serif;*/
+}
+
+#target h4, #target h5 {
+
+	font-family: 'Ubuntu', sans-serif;
 }
 
 #target table thead th {
@@ -32,11 +189,11 @@
 	padding-top: 5px;
 }
 
-.resource_item ul{
+.resource_item ul {
 	margin-bottom: 0px;
 }
 
-.resource_item ul h4{
+.resource_item ul h4 {
 	margin-bottom: 0px;
 	margin-top: 0px;
 }
@@ -49,16 +206,17 @@ ul.f-dropdown li {
 }
 
 .resource_item .button {
-	
+
 	margin-right: 33px;
 	margin-bottom: 0px;
 	padding-left: 10px;
 	padding-right: 10px;
-	
 	margin-top: 5px;
 	padding-top: 5px;
-	padding-bottom: 5px;}
+	padding-bottom: 5px;
+}
 
+/* custom table style */
 table a:link {
 	color: #666;
 	font-weight: bold;

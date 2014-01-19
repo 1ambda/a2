@@ -33,7 +33,6 @@ $(document).ready(function() {
 			'alert' : 'alertPage',
 			'region/:region' : 'regionPage',
 			'service/:service_name' : 'specificServicePage',
-			// 'resource/:metric/:instance/:time' : 'getMetricStat'
 		},
 
 		logoutAction : function() {
@@ -47,11 +46,10 @@ $(document).ready(function() {
 		},
 
 		resourcePage : function(instance_id) {
-			// appView.instances.url = 'instance/' + instance_id;
 			appView.instanceList.removeAll();
-			
+
 			// appView.arrow.template = _.template($('#tmpl_resource_arrow').html());
-			appView.arrow.render();
+			appView.arrow.render('resource');
 			appView.bow.removeAll();
 			appView.resourceList.render(instance_id);
 			$(document).foundation();
@@ -59,15 +57,17 @@ $(document).ready(function() {
 
 		servicePage : function() {
 			appView.serviceList.render();
-			appView.arrow.render();
+			appView.arrow.render('service');
 			appView.bow.render();
+			$(document).foundation();
 		},
 
 		specificServicePage : function(service_name) {
 			appView.instances.url = 'instances/service/' + service_name;
 			appView.instanceList.render();
-			appView.arrow.render();
+			appView.arrow.render('instance');
 			appView.bow.render();
+			$(document).foundation();
 		},
 
 		alertPage : function() {
@@ -80,21 +80,9 @@ $(document).ready(function() {
 
 			appView.instances.url = '/instances/region/' + region;
 			appView.instanceList.render();
-			appView.arrow.render();
+			appView.arrow.render('instance');
 			appView.bow.render();
-		},
-		
-		getMetricStat: function(metric, instance, time) {
-			var selected = _.find(appView.resourceList.views, function(item) {
-				if (item.model.get('metric') == metric) {
-					return true;
-				}
-			
-				return false;	
-			});
-			if ( selected ) {
-				selected.chartView.drawChart(metric, instance, time);
-			}
+			$(document).foundation();
 		}
 	});
 
@@ -103,6 +91,4 @@ $(document).ready(function() {
 
 	Backbone.history.start();
 });
-
-
 
