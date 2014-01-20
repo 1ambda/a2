@@ -1,4 +1,4 @@
-exports.index = function(req, res) {
+exports.home= function(req, res) {
 	if (req.session.login) {
 		res.render('main');
 	} else {

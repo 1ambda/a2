@@ -3,9 +3,13 @@ window.Dashboard = Backbone.Model.extend({
 
 window.DashboardView = Backbone.View.extend({
 	template : _.template($('#tmpl_dashboard_item').html()),
-
+	
+	initialize: function() {
+		console.log(this.model.toJSON());
+	},
+	
 	render : function() {
-		var tmpl = this.template(this.model.toJSON());
+		var tmpl = this.template();
 		this.el = tmpl;
 		return this;
 	}
@@ -69,17 +73,22 @@ window.ResourceList = Backbone.View.extend({
 	initialize : function() {
 		this.listenTo(this.collection, 'add', this.addOne);
 		this.listenTo(this.collection, 'reset', this.addAll);
+		this.views = [];
+		this.dashViews = [];
 	},
 	
-	addDashboard : function() {
-		var view = new DashboardView({
-			model: this.dashboard,
-		});
-		
-		this.$el.append(view.render().el);
-		
-		var chartSize = 150;
-  		
+	addDashboard : function(instance_id) {
+
+				
+		var dashboard = new Dashboard();
+        var view = new DashboardView({
+                model: dashboard
+        });
+        
+        this.$el.append(view.render().el);
+        
+        var chartSize = 150;
+                  
         $('#easy-pie-chart').easyPieChart({
             animate: 2000,
             scaleColor: false,
@@ -99,7 +108,7 @@ window.ResourceList = Backbone.View.extend({
           "line-height": chartSize + 'px'
         });
         
-		this.dashViews.push(view);
+        this.dashViews.push(view);
 	},
 
 	addOne : function(item) {
@@ -130,16 +139,13 @@ window.ResourceList = Backbone.View.extend({
 	},
 
 	addAll : function() {
-		this.addDashboard();
 		this.collection.each(this.addOne, this);
 	},
 
 	render : function(instance_id) {
-		this.views = [];
-		this.dashViews = [];
-		this.dashboard = new Dashboard();
-		
 		this.removeAll();
+		this.addDashboard(instance_id);
+		
 		this.collection.reset([{
 			title : 'CPU Utilization',
 			metric : 'cpu_utilization',
@@ -210,7 +216,7 @@ window.ResourceList = Backbone.View.extend({
 
 			this.dashViews.length = 0;
 		}
-	},
+	}
 });
 
 

@@ -348,6 +348,10 @@ table tr:hover td {
 
 /* chart */
 
+#chart {
+	padding-right : 30px;
+}
+
 .chart {
 	position: relative;
 	display: inline-block;
@@ -377,6 +381,7 @@ table tr:hover td {
 }
 
 /* dashboard item */
+
 
 .dashboard-item {
 	margin-top: 50px;

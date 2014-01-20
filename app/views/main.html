@@ -281,16 +281,19 @@
 		<script type="text/template" id="tmpl_dashboard_item">
 			<div class="small-12 medium-12 large-8 columns">
 			<div class="row">
+
 			<div class="small-12 medium-12 large-4 columns text-center">
+			<div id="chart">
 			<h4>Top CPU</h4>
 			<div class="chart" data-percent="55" id="easy-pie-chart">
 			<span class="percent">55</span>
 			</div>
 			</div>
-
+			</div>
+			
 			<div class="small-12 medium-12 large-8 columns">
 			<h4>Quick Overview</h4>
-			<div class="small-12 medium-12 large-12 columns">
+			<div id="overview" class="small-12 medium-12 large-12 columns">
 			<ul class="overview" data-orbit>
 			<li class="dashboard-item-green" data-orbit-slide="headline-1">
 			<div class="dashboard-item">
@@ -318,8 +321,9 @@
 			</li>
 			</ul>
 			</div>
-
 			</div>
+			
+			
 			</div>
 			</div>
 		</script>

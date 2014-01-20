@@ -22,7 +22,6 @@ $(document).ready(function() {
 		}
 	});
 
-
 	var A2Router = Backbone.Router.extend({
 		routes : {
 			'' : 'regionPage',
@@ -52,10 +51,10 @@ $(document).ready(function() {
 			appView.bow.removeAll();
 			appView.resourceList.render(instance_id);
 			$(document).foundation({
-				orbit: {
-					timer_speed: 5000,
-					pause_on_hover: false, // Pauses on the current slide while hovering
-      				resume_on_mouseout: true,
+				orbit : {
+					timer_speed : 5000,
+					pause_on_hover : false, // Pauses on the current slide while hovering
+					resume_on_mouseout : true,
 				}
 			});
 			$(window).trigger('resize');
