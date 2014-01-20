@@ -50,7 +50,7 @@ window.InstanceList = Backbone.View.extend({
 	addOne : function(item) {		var view = new InstanceItem({
 			model : item,
 		});
-
+		
 		this.views.push(view);
 		this.$('tbody').append(view.render().el);
 	},

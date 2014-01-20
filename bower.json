@@ -18,6 +18,7 @@
     "foundation": "~5.0.2",
     "underscore": "~1.5.2",
     "backbone": "~1.1.0",
-    "font-awesome": "~4.0.3"
+    "font-awesome": "~4.0.3",
+    "jquery.easy-pie-chart": "~2.1.1"
   }
 }

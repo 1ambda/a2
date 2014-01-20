@@ -77,6 +77,28 @@ window.ResourceList = Backbone.View.extend({
 		});
 		
 		this.$el.append(view.render().el);
+		
+		var chartSize = 150;
+  		
+        $('#easy-pie-chart').easyPieChart({
+            animate: 2000,
+            scaleColor: false,
+            lineWidth: 12,
+            lineCap: 'square',
+            size: chartSize,
+            trackColor: '#e5e5e5',
+            barColor: '#ffcc33',
+            scaleColor: '#ffcc33'
+        });
+        $('#easy-pie-chart').css({
+           width : chartSize + 'px',
+           height : chartSize + 'px'
+        });
+
+        $('#easy-pie-chart .percent').css({
+          "line-height": chartSize + 'px'
+        });
+        
 		this.dashViews.push(view);
 	},
 

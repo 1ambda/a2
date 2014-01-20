@@ -51,16 +51,12 @@ window.ServiceList = Backbone.View.extend({
 		this.views = [];
 		this.service_names = [];
 		this.services = [];
-		
-		var tmpl = this.template();
-		$(this.el).html(tmpl);
-
 		this.removeAll();
 		this.collection.fetch({
 			reset : true
 		});
 	},
-
+	
 	addOne : function(item) {
 		var view = new ServiceItem({
 			model : item
@@ -71,6 +67,9 @@ window.ServiceList = Backbone.View.extend({
 	},
 
 	addAll : function() {
+		this.removeAll();	
+		var tmpl = this.template();
+		$(this.el).html(tmpl);
 		this.rendered.each(this.addOne, this);
 	},
 	
@@ -133,6 +132,7 @@ window.ServiceList = Backbone.View.extend({
 	},
 
 	removeAll : function() {
+		this.$el.html('');
 		if (this.views.length) {
 			_.each(this.views, function(item) {
 				item.remove();

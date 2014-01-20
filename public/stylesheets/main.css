@@ -4,6 +4,13 @@ html, body {
 	margin: 0px;
 }
 
+.top-bar-section ul li.active > a {
+	background: #008cba;
+	color: white;
+}
+.top-bar-section ul li.active > a:hover {
+	background: #007ba1;
+}
 
 .nav-active {
 	background: #008cba;
@@ -36,7 +43,7 @@ html, body {
 }
 
 #arrow ul {
-	padding-left: 15px;	
+	padding-left: 15px;
 }
 
 #arrow h5 {
@@ -48,9 +55,9 @@ html, body {
 	padding-bottom: 5px;
 }
 
-#arrow li a{
-	font-size:13px;
-	padding-left: 14px;	
+#arrow li a {
+	font-size: 13px;
+	padding-left: 14px;
 }
 
 #arrow .label {
@@ -103,6 +110,11 @@ html, body {
 	background: #008cba;
 }
 
+.left_padding{
+	/*text-align: center;*/
+	margin-left:20px;
+}
+
 .tabs dd a.large-arrow-link {
 	margin-left: 2rem;
 	-moz-border-radius: 5px;
@@ -153,13 +165,26 @@ html, body {
 	font-size: 14px;
 }
 
-#bow {
+#bow .bow-header {
+	font-family: 'Ubuntu', sans-serif;
+}
+
+#target h4.target-header {
 	font-family: 'Ubuntu', sans-serif;
 }
 
 #bow input {
 	font-family: 'Open Sans', sans-serif;
 }
+
+#bow h4 a{
+	margin-left: 10px;
+}
+
+#bow .bow-header {
+	margin-bottom: 0px;
+}
+
 
 #target {
 	overflow: auto;
@@ -172,8 +197,15 @@ html, body {
 	/*font-family: 'Ubuntu', sans-serif;*/
 }
 
-#target h4, #target h5 {
+/* for instance dashboard */
+#target h5 {
+	font-family: 'Ubuntu', sans-serif;
+	/*font-family: 'Russo One', sans-serif;*/
+}
 
+#target h4 {
+	/*font-family: 'Open Sans', sans-serif;*/
+	/*font-family: 'Russo One', sans-serif;*/
 	font-family: 'Ubuntu', sans-serif;
 }
 
@@ -181,9 +213,13 @@ html, body {
 	font-size: 13px;
 }
 
+/* for table */
+
 #target table tbody td {
 	font-size: 12px;
 }
+
+
 
 .resource_item {
 	padding-top: 5px;
@@ -308,4 +344,87 @@ table tr:hover td {
 	background: #f2f2f2;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
 	background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);
+}
+
+/* chart */
+
+.chart {
+	position: relative;
+	display: inline-block;
+	width: 110px;
+	height: 110px;
+	margin-top: 15px;
+	margin-bottom: 5px;
+	text-align: center;
+}
+.chart canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.percent {
+	display: inline-block;
+	line-height: 110px;
+	z-index: 2;
+	font-size: 25px;
+	font-family: 'Russo One', sans-serif;
+}
+.percent:after {
+	content: '%';
+	margin-left: 0.1em;
+	font-size: 25px;
+	font-family: 'Russo One', sans-serif;
+}
+
+/* dashboard item */
+
+.dashboard-item {
+	margin-top: 50px;
+	margin-left: 35px;
+	padding-bottom: 20px;
+}
+
+.dashboard-item-header {
+	padding-left: 5px;
+}
+
+.dashboard-item h2, .dashboard-item h4, .dashboard-item h5
+, .dashboard-item h3, .dashboard-item h6, .dashboard-item {
+	color: white;
+}
+
+.dashboard-item h5 span {
+	font-size: 14px;
+	margin-left: 5px;
+}
+
+.orbit-container {
+	margin-top: 15px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.dashboard-item-green {
+	background: #73C27D;
+	color: white;
+}
+
+.dashboard-item-blue {
+	background: #82ACDE;
+	color: white;
+}
+
+.dashboard-item-red {
+	background: #DE938E;
+	color: white;
+}
+
+.dashboard-item-yellow {
+	background: #F78A4B;
+	color: white;
+}
+
+.orbit-container h2 {
+	color: white;
 }

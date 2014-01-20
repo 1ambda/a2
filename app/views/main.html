@@ -167,6 +167,7 @@
 			<h5>The Arrows</h5>
 			<li>
 			<a class="arrow_attr" data-search="">service</a>
+			<!-- <a data-tooltip class="arrow_attr" title='service, serv, ser'>service</a> -->
 			</li>
 			<li>
 			<a class="arrow_attr" data-search="">instance-id</a>
@@ -278,14 +279,54 @@
 		</script>
 
 		<script type="text/template" id="tmpl_dashboard_item">
-			<div class="small-12 medium-6 large-8 columns">
-			<h4>Dashboard</h4>
+			<div class="small-12 medium-12 large-8 columns">
+			<div class="row">
+			<div class="small-12 medium-12 large-4 columns text-center">
+			<h4>Top CPU</h4>
+			<div class="chart" data-percent="55" id="easy-pie-chart">
+			<span class="percent">55</span>
+			</div>
+			</div>
+
+			<div class="small-12 medium-12 large-8 columns">
+			<h4>Quick Overview</h4>
+			<div class="small-12 medium-12 large-12 columns">
+			<ul class="overview" data-orbit>
+			<li class="dashboard-item-green" data-orbit-slide="headline-1">
+			<div class="dashboard-item">
+				<h2><i class="fa fa-cloud-download fa-1x"></i> <span class="dashboard-item-header">40511</span></h2>
+				<h5>Max Network In</h5>
+			</div>
+			</li>
+			<li class="dashboard-item-red" data-orbit-slide="headline-2">
+			<div class="dashboard-item">
+				<h2><i class="fa fa-cloud-upload fa-1x"></i> <span class="dashboard-item-header">910511</span></h2>
+				<h5>Max Network Out</h5>
+			</div>
+			</li>
+			<li class="dashboard-item-blue" data-orbit-slide="headline-3">
+			<div class="dashboard-item">
+				<h2><i class="fa fa-envelope fa-1x"></i> <span class="dashboard-item-header">3511 / 49</span></h2>
+				<h5>Max Disk Write <span>(Bytes / Ops)</span></h5>
+			</div>
+			</li>
+			<li class="dashboard-item-yellow" data-orbit-slide="headline-4">
+			<div class="dashboard-item">
+				<h2><i class="fa fa-folder fa-1x"></i> <span class="dashboard-item-header">15511 / 211</span></h2>
+				<h5>Max Disk Read <span>(Bytes / Ops)</span></h5>
+			</div>
+			</li>
+			</ul>
+			</div>
+
+			</div>
+			</div>
 			</div>
 		</script>
 
 		<script type="text/template" id="tmpl_instance_list">
 			<div class="small-12 medium-12 large-12 columns">
-			<h4>Target</h4>
+			<h4 class="target-header">Target</h4>
 			<br/>
 			<table cellspacing='0'>
 			<thead>
@@ -307,6 +348,7 @@
 			</div>
 		</script>
 
+			
 		<script type="text/template" id="tmpl_instance_item">
 			<td><%= service_name %></td>
 			<td><%= instance_id %></td>
@@ -320,7 +362,7 @@
 
 		<script type="text/template" id="tmpl_service_list">
 			<div class="small-12 medium-12 large-12 columns">
-			<h4>Target</h4>
+			<h4 class="target-header">Target</h4>
 			<br/>
 			<table cellspacing='0'>
 			<thead>
@@ -354,7 +396,7 @@
 		<script type="text/template" id="tmpl_bow">
 			<div class="bow small-12 medium-12 large-12 columns">
 			<div class="row collapse">
-			<h4>Bow</h4>
+			<h4 class="bow-header">Bow <a id="reset" class="label secondary radius">reset</a></h4>
 			<br/>
 			<div class="small-10 columns">
 			<input type="text" placeholder="Shoot an arrow">
@@ -376,10 +418,10 @@
 			<a href="#" class="large-arrow-link"><i class="fa fa-bar-chart-o fa-3x"></i><p class="large-arrow">CPU Utilization</p></a>
 			</dd>
 			<dd>
-			<a href="#" class="large-arrow-link"><i class="fa fa-save fa-3x"></i><p class="large-arrow">Storage Access</p></a>
+			<a href="#" class="large-arrow-link"><i class="left_padding fa fa-file fa-3x"></i><p class="large-arrow">Storage Access</p></a>
 			</dd>
 			<dd>
-			<a href="#" class="large-arrow-link"><i class="fa fa-rss fa-3x"></i><p class="large-arrow">Network Traffic</p></a>
+			<a href="#" class="large-arrow-link"><i class="left_padding  fa fa-rss fa-3x"></i><p class="large-arrow">Network Traffic</p></a>
 			</dd>
 			<dd class="empty hide-for-small"></dd>
 			</dl>
@@ -390,7 +432,7 @@
 			<dd><a href="#" class="active"><i class="fa fa-desktop fa-2x"></i><span>ALL Resources</span></a>			</dd>
 			<dd><a href="#"><i class="fa fa-bar-chart-o fa-2x"></i><span>CPU Utilization</span></a>
 			</dd>
-			<dd><a href="#"><i class="fa fa-save fa-2x"></i><span>Storage Access</span></a>
+			<dd><a href="#"><i class="fa fa-file fa-2x"></i><span>Storage Access</span></a>
 			</dd>
 			<dd><a href="#"><i class="fa fa-rss fa-2x"></i><span>Network Traffic</span></a>
 			</dd>
@@ -404,6 +446,7 @@
 		<script src="foundation/js/foundation.js"></script>
 		<script src="underscore/underscore.js"></script>
 		<script src="backbone/backbone.js"></script>
+		<script src="jquery.easy-pie-chart/dist/jquery.easypiechart.js"></script>
 		<script>
 			$(document).foundation();
 		</script>

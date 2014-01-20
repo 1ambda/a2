@@ -19,10 +19,9 @@ $(document).ready(function() {
 
 			this.arrow = new ArrowView();
 			this.bow = new BowView();
-		},
+		}
 	});
 
-	var appView = new AppView();
 
 	var A2Router = Backbone.Router.extend({
 		routes : {
@@ -52,7 +51,14 @@ $(document).ready(function() {
 			appView.arrow.render('resource');
 			appView.bow.removeAll();
 			appView.resourceList.render(instance_id);
-			$(document).foundation();
+			$(document).foundation({
+				orbit: {
+					timer_speed: 5000,
+					pause_on_hover: false, // Pauses on the current slide while hovering
+      				resume_on_mouseout: true,
+				}
+			});
+			$(window).trigger('resize');
 		},
 
 		servicePage : function() {
@@ -86,8 +92,8 @@ $(document).ready(function() {
 		}
 	});
 
-	var appRouter = new A2Router();
-	window.router = appRouter;
+	window.appView = new AppView();
+	window.router = new A2Router();
 
 	Backbone.history.start();
 });
