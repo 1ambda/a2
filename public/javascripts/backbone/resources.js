@@ -22,27 +22,7 @@ window.DashboardView = Backbone.View.extend({
 		var template = _.template($('#tmpl_dashboard_attr').html());
 		var result = template(this.model.toJSON());
 		$('#target #dashboard').append(result);
-		     
-        var chartSize = 150;
-                  
-        $('#easy-pie-chart').easyPieChart({
-            animate: 2000,
-            scaleColor: false,
-            lineWidth: 12,
-            lineCap: 'square',
-            size: chartSize,
-            trackColor: '#e5e5e5',
-            barColor: '#ffcc33',
-            scaleColor: '#ffcc33'
-        });
-        $('#easy-pie-chart').css({
-           width : chartSize + 'px',
-           height : chartSize + 'px'
-        });
-
-        $('#easy-pie-chart .percent').css({
-          "line-height": chartSize + 'px'
-        });
+      
 		$(document).foundation({
 			orbit : {
 				timer_speed : 5000,

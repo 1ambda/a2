@@ -72,6 +72,7 @@ $(document).ready(function() {
 			appView.arrow.render('resource');
 			appView.bow.removeAll();
 			appView.resourceList.render(instance_id);
+			$(window).trigger('resize');
 		},
 
 		servicePage : function() {

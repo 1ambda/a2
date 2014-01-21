@@ -280,19 +280,17 @@
 		
 		<script type="text/template" id="tmpl_dashboard_attr">
 			<div class="row">
+			<h4 id="overview-header">Quick Overview</h4>
+			<div class="small-12 medium-12 large-4 columns dashboard-cpu-box">
 
-			<div class="small-12 medium-12 large-4 columns text-center">
-			<div id="chart">
-			<h4>Top CPU</h4>
-			<div class="chart" data-percent="<%= cpu.maximum %>" id="easy-pie-chart">
-			<span class="percent"><%= cpu.maximum %></span>
-			</div>
+			<div class="chart-square">
+				<i class="fa fa-cog fa-spin fa-4x"></i> <span><%= cpu.maximum %>%</span>
+				<p>Today's Top CPU</p>
 			</div>
 			</div>
 			
-			<div class="small-12 medium-12 large-8 columns">
-			<h4>Quick Overview</h4>
-			<div id="overview" class="small-12 medium-12 large-12 columns">
+			<div class="small-12 medium-12 large-8 columns dashboard-other-box">
+			<div id="overview" class="small-12 medium-12 large-12 columns dashboard-box">
 			<ul class="overview" data-orbit>
 			<li class="dashboard-item-green" data-orbit-slide="headline-1">
 			<div class="dashboard-item">

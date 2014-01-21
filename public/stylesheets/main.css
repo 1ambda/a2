@@ -117,9 +117,9 @@ html, body {
 
 .tabs dd a.large-arrow-link {
 	margin-left: 2rem;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
 	padding-left: 0px;
 	padding-right: 0px;
 }
@@ -348,6 +348,46 @@ table tr:hover td {
 
 /* chart */
 
+#overview-header {
+	margin-left: 15px;
+}
+
+.dashboard-cpu-box {
+	padding-right: 0px;
+}
+
+.dashboard-other-box {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.chart-square {
+	background: #ffcc33;
+	color: white;
+	margin-top: 15px;
+	padding-top: 0px;
+	border-radius: 2px;
+	padding-left: 15px;
+	padding-right: 5px;
+	padding-top: 40px;
+	height: 164px;
+}
+
+.chart-square span {
+	margin-left: 5px;
+	font-size: 30px;
+}
+
+.chart-square h2 {
+	color: white;
+}
+
+.chart-square p {
+	margin-top: 10px;
+	font-size: 20px;
+	font-family: 'Ubuntu', sans-serif;
+}
+
 #chart {
 	padding-right : 30px;
 }
@@ -384,13 +424,14 @@ table tr:hover td {
 
 
 .dashboard-item {
-	margin-top: 50px;
+	margin-top: 55px;
 	margin-left: 35px;
-	padding-bottom: 20px;
+	padding-bottom: 15px;
 }
 
 .dashboard-item-header {
 	padding-left: 5px;
+	font-family: 'Open Sans', sans-serif;
 }
 
 .dashboard-item h2, .dashboard-item h4, .dashboard-item h5
@@ -405,9 +446,9 @@ table tr:hover td {
 
 .orbit-container {
 	margin-top: 15px;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
 }
 
 .dashboard-item-green {
