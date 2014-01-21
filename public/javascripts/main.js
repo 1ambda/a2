@@ -40,6 +40,9 @@ $(document).ready(function() {
 			this.resourceList = new ResourceList({
 				collection : this.resources
 			});
+			
+			this.cpuView = new CpuView();
+			
 
 			this.arrow = new ArrowView();
 			this.bow = new BowView();
@@ -77,13 +80,16 @@ $(document).ready(function() {
 		},
 		
 		specificResourcePage: function(instance_id, resource_type) {
+			appView.arrow.render('resource', instance_id);
+			appView.bow.removeAll();
 			
 			var hash = '#instance/' + instance_id + '/' + resource_type;
 			var link = $('a[href*="' + hash + '"');
 			$('.resource-tab').parent('dd').removeClass('active');
 			$(link).parent('dd').addClass('active');
 			
-			appView.arrow.render('resource', instance_id);
+			appView.target.render(appView.cpuView, null, instance_id);
+			
 		},
 
 		servicePage : function() {

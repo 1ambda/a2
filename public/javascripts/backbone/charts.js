@@ -6,7 +6,7 @@ window.ChartDatas = Backbone.Collection.extend({
 	model : ChartData,
 });
 
-var map = {
+window.ColorMap = {
 	darkgreen : '#006400',
 	olive : '#808000',
 	dodgerblue : '#4682B4',
@@ -35,8 +35,8 @@ window.ChartView = Backbone.View.extend({
 			return;
 		}
 		
-		this.chart.graphs[0].lineColor = map[this.color];
-		this.chart.chartCursor.categoryBalloonColor = map[this.color];
+		this.chart.graphs[0].lineColor = ColorMap[this.color];
+		this.chart.chartCursor.categoryBalloonColor = ColorMap[this.color];
 		this.chart.dataProvider = this.collection.toJSON();
 		this.chart.write(this.target);
 		this.chart.numberFormatter = {
@@ -57,7 +57,7 @@ window.ChartView = Backbone.View.extend({
 	}
 });
 
-function createChart() {
+window.createChart = function() {
 
 	var chart;
 	var graph;

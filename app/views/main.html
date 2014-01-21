@@ -277,49 +277,83 @@
 			</ul>
 			</div>
 		</script>
-		
+
+		<script type="text/template" id="tmpl_resource_cpu">
+			<div class="small-12 medium-6 large-6 columns">
+				<div class="small-6 medium-6 large-6 columns">
+					<h1>Stat 1</h1>					
+					<h1>Stat 2</h1>					
+				</div>
+				<div class="small-6 medium-6 large-6 columns">
+					<h1>Stat 3</h1>
+				</div>
+			</div>
+			<div id="cpu-chart" class="small-12 medium-12 large-12 columns">
+				<ul class="left">
+					<h1>Cpu Utilization</h1>
+				</ul>
+				<ul class="right">
+					<a href="#" data-dropdown="drop" class="button success round dropdown">Last 3 Hours</a>
+				</ul>
+				<div id="chart-target" style="width:100%; height:400px;">
+				</div>
+			</div>
+			
+			<!-- template data zone for dropdown-->
+            <ul id="drop" data-dropdown-content class="f-dropdown">
+            <li class=""><a>Last 1 Hour</a></li>
+            <li class=""><a>Last 3 Hours</a></li>
+            <li class=""><a>Last 6 Hours</a></li>
+            <li class=""><a>Last 12 Hours</a></li>
+            <li class=""><a>Last 1 Day</a></li>
+            <li class=""><a>Last 3 Days</a></li>
+            <li class=""><a>Last 1 Week</a></li>
+            <li class=""><a>Last 1 Month</a></li>
+            </ul>
+		</script>
+
 		<script type="text/template" id="tmpl_dashboard_attr">
 			<div class="row">
 			<h4 id="overview-header">Quick Overview</h4>
 			<div class="small-12 medium-12 large-4 columns dashboard-cpu-box">
 
 			<div class="chart-square">
-				<i class="fa fa-cog fa-spin fa-4x"></i> <span><%= cpu.maximum %>%</span>
-				<p>Today's Top CPU</p>
+			<i class="fa fa-cog fa-spin fa-4x"></i> <span><%= cpu.maximum %>%</span>
+			<p>Today's Top CPU</p>
 			</div>
 			</div>
-			
+
 			<div class="small-12 medium-12 large-8 columns dashboard-other-box">
 			<div id="overview" class="small-12 medium-12 large-12 columns dashboard-box">
 			<ul class="overview" data-orbit>
 			<li class="dashboard-item-green" data-orbit-slide="headline-1">
 			<div class="dashboard-item">
-				<h2><i class="fa fa-cloud-download fa-1x"></i> <span class="dashboard-item-header"><%= network_in.maximum %></span></h2>
-				<h5>Max Network In <span>(Bytes)</span></h5>
+			<h2><i class="fa fa-cloud-download fa-1x"></i> <span class="dashboard-item-header"><%= network_in.maximum %></span></h2>
+			<h5>Max Network In <span>(Bytes)</span></h5>
 			</div>
 			</li>
 			<li class="dashboard-item-red" data-orbit-slide="headline-2">
 			<div class="dashboard-item">
-				<h2><i class="fa fa-cloud-upload fa-1x"></i> <span class="dashboard-item-header"><%= network_out.maximum %></span></h2>
-				<h5>Max Network Out <span>(Bytes)</span></h5>
+			<h2><i class="fa fa-cloud-upload fa-1x"></i> <span class="dashboard-item-header"><%= network_out.maximum %></span></h2>
+			<h5>Max Network Out <span>(Bytes)</span></h5>
 			</div>
 			</li>
 			<li class="dashboard-item-blue" data-orbit-slide="headline-3">
 			<div class="dashboard-item">
-				<h2><i class="fa fa-envelope fa-1x"></i> <span class="dashboard-item-header"><%= disk_write_bytes.maximum %> / <%= disk_write_ops.maximum %></span></h2>
-				<h5>Max Disk Write <span>(Bytes / Ops)</span></h5>
+			<h2><i class="fa fa-envelope fa-1x"></i> <span class="dashboard-item-header"><%= disk_write_bytes.maximum %> / <%= disk_write_ops.maximum %></span></h2>
+			<h5>Max Disk Write <span>(Bytes / Ops)</span></h5>
 			</div>
 			</li>
 			<li class="dashboard-item-yellow" data-orbit-slide="headline-4">
 			<div class="dashboard-item">
-				<h2><i class="fa fa-folder fa-1x"></i> <span class="dashboard-item-header"><%= disk_read_bytes.maximum %> / <%= disk_read_ops.maximum %></span></h2>
-				<h5>Max Disk Read <span>(Bytes / Ops)</span></h5>
+			<h2><i class="fa fa-folder fa-1x"></i> <span class="dashboard-item-header"><%= disk_read_bytes.maximum %> / <%= disk_read_ops.maximum %></span></h2>
+			<h5>Max Disk Read <span>(Bytes / Ops)</span></h5>
 			</div>
 			</li>
 			</ul>
 			</div>
 			</div>
-			
+
 			</div>
 		</script>
 
@@ -352,7 +386,6 @@
 			</div>
 		</script>
 
-			
 		<script type="text/template" id="tmpl_instance_item">
 			<td><%= service_name %></td>
 			<td><%= instance_id %></td>
@@ -422,7 +455,10 @@
 			<a href="#instance/<%= instance_id %>/cpu" class="resource-tab large-arrow-link"><i class="fa fa-bar-chart-o fa-3x"></i><p class="large-arrow">CPU Utilization</p></a>
 			</dd>
 			<dd>
-			<a href="#instance/<%= instance_id %>/storage" class="resource-tab large-arrow-link"><i class="left_padding fa fa-file fa-3x"></i><p class="large-arrow">Storage Access</p></a>
+			<a href="#instance/<%= instance_id %>/storage_write" class="resource-tab large-arrow-link"><i class="left-padding fa fa-sign-in fa-3x"></i><p class="large-arrow">Storage Write</p></a>
+			</dd>
+			<dd>
+			<a href="#instance/<%= instance_id %>/storage_read" class="resource-tab large-arrow-link"><i class="left_padding fa fa-file fa-3x"></i><p class="large-arrow">Storage Read</p></a>
 			</dd>
 			<dd>
 			<a href="#instance/<%= instance_id %>/network" class="resource-tab large-arrow-link"><i class="left_padding  fa fa-rss fa-3x"></i><p class="large-arrow">Network Traffic</p></a>
@@ -461,6 +497,7 @@
 		<script src="javascripts/backbone/services.js"></script>
 		<script src="javascripts/backbone/instances.js"></script>
 		<script src="javascripts/backbone/resources.js"></script>
+		<script src="javascripts/backbone/cpu.js"></script>
 		<script src="javascripts/backbone/arrow.js"></script>
 		<script src="javascripts/backbone/bow.js"></script>
 		<script src="javascripts/backbone/target.js"></script>

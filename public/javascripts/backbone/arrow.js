@@ -54,6 +54,8 @@ window.ArrowView = Backbone.View.extend({
 				this.serviceArrow();
 				break;
 		}
+
+		$(window).trigger('resize');
 	},
 
 	resourceArrow : function(instance_id) {

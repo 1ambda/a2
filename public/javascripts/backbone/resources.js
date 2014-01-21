@@ -5,27 +5,23 @@ window.Dashboard = Backbone.Model.extend({
 });
 
 window.DashboardView = Backbone.View.extend({
-	template : _.template($('#tmpl_dashboard_item').html()),
+	el: '#dashboard',
+	template : _.template($('#tmpl_dashboard_attr').html()),
 	initialize: function() {
 		this.listenTo(this.model, 'change', this.draw);
-		this.model.fetch();
+		var tmpl = _.template($('#tmpl_dashboard_item').html());
+		$('#target').append(tmpl);
 	},
 	
 	render : function() {
-		var tmpl = this.template();
-		this.$el.html(tmpl);
-		return this;
+		this.model.fetch();
 	},
 	
 	draw: function() {
-		console.log(this);
-		var template = _.template($('#tmpl_dashboard_attr').html());
-		var result = template(this.model.toJSON());
-		// $('#target #dashboard').append(result);
-		// this.el = '#dashboard';
-		// console.log(this.$el);
-		this.$el.append(result);
-      
+		var tmpl = this.template(this.model.toJSON());
+		this.el = '#dashboard';
+		$('#dashboard', '#target').html(tmpl);
+		
 		$(document).foundation({
 			orbit : {
 				timer_speed : 5000,
@@ -34,11 +30,6 @@ window.DashboardView = Backbone.View.extend({
 			}
 		});
 		$(window).trigger('resize');
-	},
-	
-	removeAll: function() {
-		// $('#target').html('');
-		// this.remove();
 	}
 });
 
@@ -108,10 +99,9 @@ window.ResourceList = Backbone.View.extend({
 		var dashboard = new Dashboard({instance_id : instance_id});
         var view = new DashboardView({
                 model: dashboard,
-                el: this.el
         });
         
-        this.$el.append(view.render().el);
+        view.render();
         this.dashViews.push(view);
 	},
 
@@ -203,6 +193,7 @@ window.ResourceList = Backbone.View.extend({
 	},
 
 	removeAll : function() {
+		this.$el.html('');
 		this.collection.reset();
 		if(this.views.length) {
             _.each(this.views, function(item) {
@@ -217,7 +208,7 @@ window.ResourceList = Backbone.View.extend({
 		
 		if (this.dashViews.length) {
 			_.each(this.dashViews, function(item) {
-				item.removeAll();
+				item.remove();
 			});
 
 			this.dashViews.length = 0;
