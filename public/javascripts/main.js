@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+	
 	window.AppView = Backbone.View.extend({
 		el : 'body',
 		events : {
@@ -43,6 +43,7 @@ $(document).ready(function() {
 
 			this.arrow = new ArrowView();
 			this.bow = new BowView();
+			this.target = new Target();
 		}
 	});
 
@@ -50,6 +51,7 @@ $(document).ready(function() {
 		routes : {
 			'' : 'regionPage',
 			'instance/:instance_id' : 'resourcePage',
+			'instance/:instance_id/:type' : 'specificResourcePage',
 			'logout' : 'logoutAction',
 			'service' : 'servicePage',
 			'alert' : 'alertPage',
@@ -68,26 +70,33 @@ $(document).ready(function() {
 		},
 
 		resourcePage : function(instance_id) {
-			appView.instanceList.removeAll();
-			appView.arrow.render('resource');
+			
+			appView.target.render(appView.resourceList, undefined, instance_id);
+			appView.arrow.render('resource', instance_id);
 			appView.bow.removeAll();
-			appView.resourceList.render(instance_id);
-			$(window).trigger('resize');
+		},
+		
+		specificResourcePage: function(instance_id, resource_type) {
+			
+			var hash = '#instance/' + instance_id + '/' + resource_type;
+			var link = $('a[href*="' + hash + '"');
+			$('.resource-tab').parent('dd').removeClass('active');
+			$(link).parent('dd').addClass('active');
+			
+			appView.arrow.render('resource', instance_id);
 		},
 
 		servicePage : function() {
-			appView.serviceList.render();
+			appView.target.render(appView.serviceList);
 			appView.arrow.render('service');
 			appView.bow.render();
-			$(document).foundation();
 		},
 
 		specificServicePage : function(service_name) {
-			appView.instances.url = 'instances/service/' + service_name;
-			appView.instanceList.render();
+			var url = 'instances/service/' + service_name;
+			appView.target.render(appView.instanceList, url);
 			appView.arrow.render('instance');
 			appView.bow.render();
-			$(document).foundation();
 		},
 
 		alertPage : function() {
@@ -98,11 +107,10 @@ $(document).ready(function() {
 				region = 'global';
 			}
 
-			appView.instances.url = '/instances/region/' + region;
-			appView.instanceList.render();
+			var url = '/instances/region/' + region;
+			appView.target.render(appView.instanceList, url);			
 			appView.arrow.render('instance');
 			appView.bow.render();
-			$(document).foundation();
 		}
 	});
 

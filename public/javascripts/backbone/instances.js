@@ -39,7 +39,6 @@ window.InstanceList = Backbone.View.extend({
 	},
 
 	render : function() {
-		this.removeAll();
 		var tmpl = this.template();
 		this.$el.html(tmpl);
 		this.collection.fetch({

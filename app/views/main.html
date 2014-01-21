@@ -414,18 +414,18 @@
 
 		<script type="text/template" id="tmpl_resource_arrow">
 			<div class="resource_arrow hide-for-small large-2 medium-3 columns">
-			<dl class="tabs vertical text-center" data-tab>
+			<dl class="tabs vertical text-center">
 			<dd class="header"></dd>
 			<dd class="active">
-			<a href="#" class="large-arrow-link"><i class="fa fa-desktop fa-3x"></i><p class="large-arrow">ALL</p></a>			</dd>
+			<a href="#instance/<%= instance_id %>" class="resource-tab large-arrow-link"><i class="fa fa-desktop fa-3x"></i><p class="large-arrow">ALL</p></a>			</dd>
 			<dd>
-			<a href="#" class="large-arrow-link"><i class="fa fa-bar-chart-o fa-3x"></i><p class="large-arrow">CPU Utilization</p></a>
+			<a href="#instance/<%= instance_id %>/cpu" class="resource-tab large-arrow-link"><i class="fa fa-bar-chart-o fa-3x"></i><p class="large-arrow">CPU Utilization</p></a>
 			</dd>
 			<dd>
-			<a href="#" class="large-arrow-link"><i class="left_padding fa fa-file fa-3x"></i><p class="large-arrow">Storage Access</p></a>
+			<a href="#instance/<%= instance_id %>/storage" class="resource-tab large-arrow-link"><i class="left_padding fa fa-file fa-3x"></i><p class="large-arrow">Storage Access</p></a>
 			</dd>
 			<dd>
-			<a href="#" class="large-arrow-link"><i class="left_padding  fa fa-rss fa-3x"></i><p class="large-arrow">Network Traffic</p></a>
+			<a href="#instance/<%= instance_id %>/network" class="resource-tab large-arrow-link"><i class="left_padding  fa fa-rss fa-3x"></i><p class="large-arrow">Network Traffic</p></a>
 			</dd>
 			<dd class="empty hide-for-small"></dd>
 			</dl>
@@ -463,6 +463,7 @@
 		<script src="javascripts/backbone/resources.js"></script>
 		<script src="javascripts/backbone/arrow.js"></script>
 		<script src="javascripts/backbone/bow.js"></script>
+		<script src="javascripts/backbone/target.js"></script>
 		<script src="javascripts/main.js"></script>
 	</body>
 </html>

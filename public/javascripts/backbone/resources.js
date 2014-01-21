@@ -6,7 +6,6 @@ window.Dashboard = Backbone.Model.extend({
 
 window.DashboardView = Backbone.View.extend({
 	template : _.template($('#tmpl_dashboard_item').html()),
-	
 	initialize: function() {
 		this.listenTo(this.model, 'change', this.draw);
 		this.model.fetch();
@@ -14,14 +13,18 @@ window.DashboardView = Backbone.View.extend({
 	
 	render : function() {
 		var tmpl = this.template();
-		this.el = tmpl;
+		this.$el.html(tmpl);
 		return this;
 	},
 	
 	draw: function() {
+		console.log(this);
 		var template = _.template($('#tmpl_dashboard_attr').html());
 		var result = template(this.model.toJSON());
-		$('#target #dashboard').append(result);
+		// $('#target #dashboard').append(result);
+		// this.el = '#dashboard';
+		// console.log(this.$el);
+		this.$el.append(result);
       
 		$(document).foundation({
 			orbit : {
@@ -31,6 +34,11 @@ window.DashboardView = Backbone.View.extend({
 			}
 		});
 		$(window).trigger('resize');
+	},
+	
+	removeAll: function() {
+		// $('#target').html('');
+		// this.remove();
 	}
 });
 
@@ -139,7 +147,7 @@ window.ResourceList = Backbone.View.extend({
 	},
 
 	render : function(instance_id) {
-		this.removeAll();
+		// this.removeAll();
 		this.addDashboard(instance_id);
 		
 		this.collection.reset([{
@@ -196,22 +204,20 @@ window.ResourceList = Backbone.View.extend({
 
 	removeAll : function() {
 		this.collection.reset();
-		if (this.views) {
-			if(this.views.length) {
-                _.each(this.views, function(item) {
-                    if (item.chartView) {
-                            item.chartView.removeAll();
-                    }
-                    item.remove();
-                });
-			}
+		if(this.views.length) {
+            _.each(this.views, function(item) {
+                if (item.chartView) {
+                        item.chartView.removeAll();
+                }
+                item.remove();
+            });
+		}
 
 			this.views.length = 0;
-		}
 		
 		if (this.dashViews.length) {
-			_.each(this.views, function(item) {
-				item.remove();
+			_.each(this.dashViews, function(item) {
+				item.removeAll();
 			});
 
 			this.dashViews.length = 0;
