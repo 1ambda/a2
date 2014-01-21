@@ -21,11 +21,12 @@ exports.readMaxResources = function(req, res) {
 	today = today.toISOString();
 	yesterday = yesterday.toISOString();
 
-	console.log(req.params.id);
+	var instance_id = req.params.id;
 
 	async.parallel({
 		cpu : function(callback) {
 			CpuUtilization.find({
+				instance_id: instance_id,
 				time_stamp: {$gt: yesterday, $lt: today }
 			}).sort({maximum: -1}).limit(1).exec(function(err, docs) {
 				if(err) {
@@ -39,6 +40,7 @@ exports.readMaxResources = function(req, res) {
 
 		network_in : function(callback) {
 			NetworkIn.find({
+				instance_id: instance_id,
 				time_stamp: {$gt: yesterday, $lt: today }
 			}).sort({maximum: -1}).limit(1).exec(function(err, docs) {
 				if(err) {
@@ -52,6 +54,7 @@ exports.readMaxResources = function(req, res) {
 
 		network_out : function(callback) {
 			NetworkOut.find({
+				instance_id: instance_id,
 				time_stamp: {$gt: yesterday, $lt: today }
 			}).sort({maximum: -1}).limit(1).exec(function(err, docs) {
 				if(err) {
@@ -65,6 +68,7 @@ exports.readMaxResources = function(req, res) {
 
 		disk_read_bytes : function(callback) {
 			DiskReadBytes.find({
+				instance_id: instance_id,
 				time_stamp: {$gt: yesterday, $lt: today }
 			}).sort({maximum: -1}).limit(1).exec(function(err, docs) {
 				if(err) {
@@ -78,6 +82,7 @@ exports.readMaxResources = function(req, res) {
 
 		disk_write_bytes : function(callback) {
 			DiskWriteBytes.find({
+				instance_id: instance_id,
 				time_stamp: {$gt: yesterday, $lt: today }
 			}).sort({maximum: -1}).limit(1).exec(function(err, docs) {
 				if(err) {
@@ -91,6 +96,7 @@ exports.readMaxResources = function(req, res) {
 
 		disk_read_ops : function(callback) {
 			DiskReadOps.find({
+				instance_id: instance_id,
 				time_stamp: {$gt: yesterday, $lt: today }
 			}).sort({maximum: -1}).limit(1).exec(function(err, docs) {
 				if(err) {
@@ -104,6 +110,7 @@ exports.readMaxResources = function(req, res) {
 
 		disk_write_ops : function(callback) {
 			DiskWriteOps.find({
+				instance_id: instance_id,
 				time_stamp: {$gt: yesterday, $lt: today }
 			}).sort({maximum: -1}).limit(1).exec(function(err, docs) {
 				if(err) {

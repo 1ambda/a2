@@ -1,16 +1,56 @@
 window.Dashboard = Backbone.Model.extend({
+	url: function() {
+		return '/instance/' + this.get('instance_id') + '/max_resources/';
+	}
 });
 
 window.DashboardView = Backbone.View.extend({
 	template : _.template($('#tmpl_dashboard_item').html()),
 	
 	initialize: function() {
+		this.listenTo(this.model, 'change', this.draw);
+		this.model.fetch();
 	},
 	
 	render : function() {
 		var tmpl = this.template();
 		this.el = tmpl;
 		return this;
+	},
+	
+	draw: function() {
+		var template = _.template($('#tmpl_dashboard_attr').html());
+		var result = template(this.model.toJSON());
+		$('#target #dashboard').append(result);
+		     
+        var chartSize = 150;
+                  
+        $('#easy-pie-chart').easyPieChart({
+            animate: 2000,
+            scaleColor: false,
+            lineWidth: 12,
+            lineCap: 'square',
+            size: chartSize,
+            trackColor: '#e5e5e5',
+            barColor: '#ffcc33',
+            scaleColor: '#ffcc33'
+        });
+        $('#easy-pie-chart').css({
+           width : chartSize + 'px',
+           height : chartSize + 'px'
+        });
+
+        $('#easy-pie-chart .percent').css({
+          "line-height": chartSize + 'px'
+        });
+		$(document).foundation({
+			orbit : {
+				timer_speed : 5000,
+				pause_on_hover : false, // Pauses on the current slide while hovering
+				resume_on_mouseout : true,
+			}
+		});
+		$(window).trigger('resize');
 	}
 });
 
@@ -77,34 +117,13 @@ window.ResourceList = Backbone.View.extend({
 	},
 	
 	addDashboard : function(instance_id) {
-		var dashboard = new Dashboard();
+		var dashboard = new Dashboard({instance_id : instance_id});
         var view = new DashboardView({
-                model: dashboard
+                model: dashboard,
+                el: this.el
         });
         
         this.$el.append(view.render().el);
-        
-        var chartSize = 150;
-                  
-        $('#easy-pie-chart').easyPieChart({
-            animate: 2000,
-            scaleColor: false,
-            lineWidth: 12,
-            lineCap: 'square',
-            size: chartSize,
-            trackColor: '#e5e5e5',
-            barColor: '#ffcc33',
-            scaleColor: '#ffcc33'
-        });
-        $('#easy-pie-chart').css({
-           width : chartSize + 'px',
-           height : chartSize + 'px'
-        });
-
-        $('#easy-pie-chart .percent').css({
-          "line-height": chartSize + 'px'
-        });
-        
         this.dashViews.push(view);
 	},
 

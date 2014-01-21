@@ -11,13 +11,18 @@ $(document).ready(function() {
 			var reset = $('#reset', '#bow');
 
 			if (!$(bow).is(':focus')) {
-				if (e.which === 69) {
-					$(bow).focus();
-				} 
-				else if (e.which === 82) {
-					$(reset).trigger('click');
+				switch(e.which) {
+					case 68:
+						$(bow).val('');
+						break;
+					case 69:
+						$(bow).focus();
+						break;
+					case 82:
+						$(reset).trigger('click');
+						break;
 				}
-			} 
+			}
 		},
 
 		initialize : function() {
@@ -67,14 +72,6 @@ $(document).ready(function() {
 			appView.arrow.render('resource');
 			appView.bow.removeAll();
 			appView.resourceList.render(instance_id);
-			$(document).foundation({
-				orbit : {
-					timer_speed : 5000,
-					pause_on_hover : false, // Pauses on the current slide while hovering
-					resume_on_mouseout : true,
-				}
-			});
-			$(window).trigger('resize');
 		},
 
 		servicePage : function() {
