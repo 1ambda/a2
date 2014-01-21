@@ -5,7 +5,6 @@ window.DashboardView = Backbone.View.extend({
 	template : _.template($('#tmpl_dashboard_item').html()),
 	
 	initialize: function() {
-		console.log(this.model.toJSON());
 	},
 	
 	render : function() {
@@ -78,8 +77,6 @@ window.ResourceList = Backbone.View.extend({
 	},
 	
 	addDashboard : function(instance_id) {
-
-				
 		var dashboard = new Dashboard();
         var view = new DashboardView({
                 model: dashboard
@@ -199,12 +196,16 @@ window.ResourceList = Backbone.View.extend({
 	},
 
 	removeAll : function() {
-		if (this.views.length) {
-			_.each(this.views, function(item) {
-				if (item.chartView) {
-					item.chartView.removeAll();				}
-				item.remove();
-			});
+		this.collection.reset();
+		if (this.views) {
+			if(this.views.length) {
+                _.each(this.views, function(item) {
+                    if (item.chartView) {
+                            item.chartView.removeAll();
+                    }
+                    item.remove();
+                });
+			}
 
 			this.views.length = 0;
 		}

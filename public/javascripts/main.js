@@ -1,6 +1,25 @@
 $(document).ready(function() {
 
 	window.AppView = Backbone.View.extend({
+		el : 'body',
+		events : {
+			'keyup' : 'shortCut'
+		},
+
+		shortCut : function(e) {
+			var bow = $('input', '#bow');
+			var reset = $('#reset', '#bow');
+
+			if (!$(bow).is(':focus')) {
+				if (e.which === 69) {
+					$(bow).focus();
+				} 
+				else if (e.which === 82) {
+					$(reset).trigger('click');
+				}
+			} 
+		},
+
 		initialize : function() {
 			this.instances = new Instances();
 			this.instanceList = new InstanceList({
@@ -45,8 +64,6 @@ $(document).ready(function() {
 
 		resourcePage : function(instance_id) {
 			appView.instanceList.removeAll();
-
-			// appView.arrow.template = _.template($('#tmpl_resource_arrow').html());
 			appView.arrow.render('resource');
 			appView.bow.removeAll();
 			appView.resourceList.render(instance_id);

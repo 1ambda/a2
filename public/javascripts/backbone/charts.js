@@ -19,8 +19,8 @@ var map = {
 
 window.ChartView = Backbone.View.extend({
 	initialize : function() {
-		this.chart = createChart();
 		this.listenTo(this.collection, 'reset', this.drawChart);
+		this.chart = createChart();
 	},
 
 	render : function(metric, instance, time) {
@@ -31,6 +31,10 @@ window.ChartView = Backbone.View.extend({
 	},
 
 	drawChart : function() {
+		if ( _.size(this.collection) === 0 ) {
+			return;
+		}
+		
 		this.chart.graphs[0].lineColor = map[this.color];
 		this.chart.chartCursor.categoryBalloonColor = map[this.color];
 		this.chart.dataProvider = this.collection.toJSON();
