@@ -1,26 +1,65 @@
 window.CpuAvgModel = Backbone.Model.extend({
-	
+
 });
 
 window.CpuAvgCollection = Backbone.Collection.extend({
-	model: CpuAvgModel	
+	model : CpuAvgModel
 });
 
-window.CpuAvgView = Backbone.Collection.extend({
-	initialize: function() {
+window.CpuAvgView = Backbone.View.extend({
+	initialize : function() {
 		this.listenTo(this.collection, 'reset', this.draw);
 	},
-	
-	render: function() {
-		var defaultTime = 3; // last 3 hours
-		this.collection.url = '/instances/cpu/'	
+
+	render : function() {
+		// to change default check time, see 'config.js' in javascripts folder
+		this.collection.url = '/instances/cpu/' + window.cpuUpgradeCheckHours;
+		this.collection.fetch({
+			reset : true
+		});
 	},
-	
-	draw: function() {
-		
+
+	draw : function() {
+		// logic for cpu upgrade column
+		var result = this.collection.toJSON();
+		var length = result.length;
+		var index = 0;
+
+		var tmpl = _.template($('#tmpl_instance_upgrade').html());
+
+		if (length) {
+			var flag = setInterval(function() {
+				if (index < length) {
+					var target = $('td.' + result[index]._id, '#target');
+					var type = $(target).prev().text();
+					
+					var average = Number(result[index].avg).toFixed(2); 
+					
+					var parsed = {
+						cpu_check_string : window.cpuUpgradeCheckString,
+						avg: average
+					};
+					
+					
+
+					if ( average >= window.cpuUpgradeCondition ) {
+						parsed['instance_type'] = window.instanceType[type].upgrade;
+						$(target).html(tmpl(parsed));
+					} else if ( average < window.cpuDowngradeCondition ) {
+						parsed['instance_type'] = window.instanceType[type].downgrade;
+						$(target).html(tmpl(parsed));
+					} else {
+						$('td.' + result[index]._id, '#target').html('');
+					}
+					index++;
+				} else {
+					clearInterval(flag);
+				}
+
+			}, window.cpuCheckInterval);
+		}
 	}
 });
-
 
 window.Instance = Backbone.Model.extend({
 
@@ -47,14 +86,14 @@ window.InstanceItem = Backbone.View.extend({
 		var diff = now.getTime() - launch_time.getTime();
 		var diffHours = (diff / 1000 / 60 / 60);
 
-		if (diffHours >= 336) {
+		if (diffHours >= window.reservedHours) {
 			// 2 weeks
 			this.model.set({
-				resolved : 'required' 
+				resolved : 'required'
 			});
 		} else {
 			this.model.set({
-				resolved : '' 
+				resolved : ''
 			});
 		}
 
@@ -86,15 +125,15 @@ window.InstanceList = Backbone.View.extend({
 		this.collection.fetch({
 			reset : true
 		});
-		
-		var cpuAvgCollection = new CpuAvgCollection();
-		var cpuAvgView = new CpuAvgView({
-			collection: cpuAvgCollection
+
+		this.cpuAvgCollection = new CpuAvgCollection();
+		this.cpuAvgView = new CpuAvgView({
+			collection : this.cpuAvgCollection
 		});
-		
-		cpuAvgView.render();
-		
-		this.views.push(cpuAvgView);
+
+		this.cpuAvgView.render();
+
+		this.views.push(this.cpuAvgView);
 	},
 
 	addOne : function(item) {		var view = new InstanceItem({

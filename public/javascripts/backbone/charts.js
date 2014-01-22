@@ -6,17 +6,6 @@ window.ChartDatas = Backbone.Collection.extend({
 	model : ChartData,
 });
 
-window.ColorMap = {
-	darkgreen : '#006400',
-	olive : '#808000',
-	dodgerblue : '#4682B4',
-	teal : '#008080',
-	purple : '#800080',
-	mediumpurple : '#9370DB',
-	orangered : '#FF4500',
-	darkslateblue : '#483D8B'
-};
-
 window.ChartView = Backbone.View.extend({
 	initialize : function() {
 		this.listenTo(this.collection, 'reset', this.drawChart);
@@ -24,15 +13,23 @@ window.ChartView = Backbone.View.extend({
 	},
 
 	render : function(metric, instance, time) {
+		this.metric = metric;
 		this.collection.url = '/resources/' + metric + '/' + instance + '/' + time;
 		this.collection.fetch({
 			reset : true
 		});
+		
 	},
 
 	drawChart : function() {
 		if ( _.size(this.collection) === 0 ) {
 			return;
+		}
+		
+		if (this.metric == "cpu_utilization") {
+			this.chart.graphs[0].valueField = "average";
+		} else {
+			this.chart.graphs[0].valueField = "sum";
 		}
 		
 		this.chart.graphs[0].lineColor = ColorMap[this.color];

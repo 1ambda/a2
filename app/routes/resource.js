@@ -29,6 +29,15 @@ exports.read = function(req, res) {
 
 	var start = getStartTime(time);
 	var end = new Date();
+	
+	
+	var query = null;
+	
+	if (metric == "cpu_utilization") {
+		query = {average:1, time_stamp:1};
+	} else {
+		query = {sum:1, time_stamp:1};
+	}
 
 	MetricCollection[metric].find({
 		instance_id : instance,
@@ -36,7 +45,7 @@ exports.read = function(req, res) {
 			$gt : new Date(start),
 			$lt : new Date(end)
 		}, 
-	}, {unit:1, average:1, time_stamp:1 }, function(err, stat) {
+	}, query, function(err, stat) {
 		if (err) {
 			console.log(err);
 		} else {

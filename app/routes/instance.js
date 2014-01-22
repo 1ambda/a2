@@ -12,7 +12,7 @@ var async = require('async');
 
 exports.readAvgCpuUtilization = function(req, res) {
 
-	var diff = req.params.time;
+	var diff = Number(req.params.time);
 	var startTime = new Date();
 	startTime.getHours(startTime.setHours() - diff);
 
@@ -28,7 +28,7 @@ exports.readAvgCpuUtilization = function(req, res) {
 		}
 	}).group({
 		_id : '$instance_id',
-		markAvg : {
+		avg : {
 			$avg : '$average'
 		}
 	}).exec(function(err, docs) {
@@ -37,7 +37,6 @@ exports.readAvgCpuUtilization = function(req, res) {
 			return res.send();
 		}
 
-		console.log(res);
 		res.send(docs);
 	});
 };

@@ -419,7 +419,7 @@
 			<th>Service</th>
 			<th>Instance ID</th>
 			<th>Instance Type</th>
-			<th>Upgrade</th>
+			<th>A2 Comment</th>
 			<th>Instance State</th>
 			<th>Resolved</th>
 			<th>Region</th>
@@ -435,11 +435,18 @@
 			</div>
 		</script>
 
+		<script type="text/template" id="tmpl_instance_upgrade">
+			<span data-tooltip class="has-tip" title="<%= cpu_check_string %> : <strong><%= avg %><strong> %">
+				<%= instance_type %></span>
+		</script>
+
 		<script type="text/template" id="tmpl_instance_item">
 			<td><%= service_name %></td>
 			<td><%= instance_id %></td>
-			<td><%= instance_type %></td>
-			<td></td>
+			<td class="type"><%= instance_type %></td>
+			<td class="<%= instance_id %>">
+				<i class="fa fa-spinner fa-spin"></i>
+			</td>
 			<td>
 				<% if (instance_state == 'running') { 
 					%><img src="images/running.png"><% 
@@ -557,6 +564,7 @@
 		</script>
 		<script src="javascripts/amcharts/amcharts.js" type="text/javascript"></script>
 		<script src="javascripts/amcharts/serial.js" type="text/javascript"></script>
+		<script src="javascripts/config.js"></script>
 
 		<script src="javascripts/backbone/charts.js"></script>
 		<script src="javascripts/backbone/services.js"></script>
