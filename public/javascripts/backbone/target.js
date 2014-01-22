@@ -4,6 +4,10 @@ window.Target = Backbone.View.extend({
 	},
 	
 	render: function(target, url, instance_id) {
+		
+		// for removing launch-time tooltip 
+		$('.has-tip').trigger('mouseout');
+
 		if (this.currentTarget) {
 			this.currentTarget.removeAll();
 		}
@@ -15,7 +19,7 @@ window.Target = Backbone.View.extend({
 		}
 		
 		this.currentTarget.render(instance_id || null);
-		$(document).foundation();
+		$('#target').foundation();
 		$(window).trigger('resize');
 	}
 });

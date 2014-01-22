@@ -55,6 +55,7 @@ window.ArrowView = Backbone.View.extend({
 				break;
 		}
 
+		$('#arrow').foundation();
 		$(window).trigger('resize');
 	},
 
@@ -70,7 +71,7 @@ window.ArrowView = Backbone.View.extend({
 			var windowHeight = $(window).height();
 
 			var Cheight = null;
-
+			
 			if (contentHeight > windowHeight) {
 				Cheight = $('body').prop('scrollHeight');
 			} else {

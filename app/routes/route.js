@@ -15,6 +15,7 @@ var routing = function(app) {
 	app.get('/instances/service/:service', instance.readByService);
 	app.get('/instances/:service/:id/:type/:state/:region/:public/:private/:security', instance.readByInstanceQuery);
 	app.get('/instance/:id/max_resources', instance.readMaxResources);
+	app.get('/instances/cpu/:time', instance.readAvgCpuUtilization);
 	app.get('/resources/:metric/:instance/:time', resource.read);
 };
 

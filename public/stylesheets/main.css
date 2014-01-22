@@ -322,6 +322,15 @@ table td {
 	background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
 	background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
 }
+
+/* table image */
+
+td img {
+	margin-right: 5px;
+	margin-bottom: 4px;
+}
+
+
 table tr.even td {
 	background: #f6f6f6;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
@@ -350,6 +359,13 @@ table tr:hover td {
 
 #overview-header {
 	margin-left: 15px;
+}
+
+#overview-header span {
+	padding: 8px;
+	margin-bottom: 0px;
+	margin-left: 5px;
+	
 }
 
 .dashboard-cpu-box {
@@ -421,6 +437,28 @@ table tr:hover td {
 	font-family: 'Russo One', sans-serif;
 }
 
+/* each resource */
+
+
+
+.right.chart-header {
+	margin-bottom: 0px;
+	padding-bottom 0px;
+	padding-top: 10px;
+}
+
+.left.chart-header h1 {
+	font-family: 'Ubuntu', sans-serif;
+	/*font-family: 'Open Sans', sans-serif;*/
+}
+
+.left.chart-header {
+	margin-bottom: 0px;
+}
+
+#target {
+	overflow-y: hidden;
+}
 /* dashboard item */
 
 

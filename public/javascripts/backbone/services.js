@@ -74,7 +74,7 @@ window.ServiceList = Backbone.View.extend({
 	},
 	
 	filter : function() {
-		this.service_names = this.collection.pluck('service_name');
+		this.service_names = _.uniq(this.collection.pluck('service_name'));
 
 		_.each(this.service_names, function(item) {
 			var list = this.collection.where({

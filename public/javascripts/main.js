@@ -42,7 +42,9 @@ $(document).ready(function() {
 			});
 			
 			this.cpuView = new CpuView();
-			
+			this.storageWriteView = new StorageWriteView(); 
+			this.storageReadView = new StorageReadView();
+			this.networkView = new NetworkView(); 
 
 			this.arrow = new ArrowView();
 			this.bow = new BowView();
@@ -80,16 +82,26 @@ $(document).ready(function() {
 		},
 		
 		specificResourcePage: function(instance_id, resource_type) {
-			appView.arrow.render('resource', instance_id);
 			appView.bow.removeAll();
+			appView.arrow.render('resource', instance_id);
 			
 			var hash = '#instance/' + instance_id + '/' + resource_type;
 			var link = $('a[href*="' + hash + '"');
 			$('.resource-tab').parent('dd').removeClass('active');
 			$(link).parent('dd').addClass('active');
 			
-			appView.target.render(appView.cpuView, null, instance_id);
+			// resource_type : cpu, storage_write, storage_read, network
 			
+			var view = null;
+			
+			switch(resource_type) {
+				case 'storage_write' : view = appView.storageWriteView; break;
+				case 'storage_read' : view = appView.storageReadView; break;
+				case 'network' : view = appView.networkView; break;
+				case 'cpu' : view = appView.cpuView; break;
+			}
+
+			appView.target.render(view, null, instance_id);
 		},
 
 		servicePage : function() {

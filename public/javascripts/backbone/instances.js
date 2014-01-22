@@ -1,3 +1,27 @@
+window.CpuAvgModel = Backbone.Model.extend({
+	
+});
+
+window.CpuAvgCollection = Backbone.Collection.extend({
+	model: CpuAvgModel	
+});
+
+window.CpuAvgView = Backbone.Collection.extend({
+	initialize: function() {
+		this.listenTo(this.collection, 'reset', this.draw);
+	},
+	
+	render: function() {
+		var defaultTime = 3; // last 3 hours
+		this.collection.url = '/instances/cpu/'	
+	},
+	
+	draw: function() {
+		
+	}
+});
+
+
 window.Instance = Backbone.Model.extend({
 
 });
@@ -16,6 +40,24 @@ window.InstanceItem = Backbone.View.extend({
 	},
 
 	render : function() {
+
+		var launch_time = new Date(this.model.get('launch_time'));
+		var now = new Date();
+
+		var diff = now.getTime() - launch_time.getTime();
+		var diffHours = (diff / 1000 / 60 / 60);
+
+		if (diffHours >= 336) {
+			// 2 weeks
+			this.model.set({
+				resolved : 'required' 
+			});
+		} else {
+			this.model.set({
+				resolved : '' 
+			});
+		}
+
 		var tmpl = this.template(this.model.toJSON());
 		$(this.el).html(tmpl);
 		return this;
@@ -44,18 +86,28 @@ window.InstanceList = Backbone.View.extend({
 		this.collection.fetch({
 			reset : true
 		});
+		
+		var cpuAvgCollection = new CpuAvgCollection();
+		var cpuAvgView = new CpuAvgView({
+			collection: cpuAvgCollection
+		});
+		
+		cpuAvgView.render();
+		
+		this.views.push(cpuAvgView);
 	},
 
 	addOne : function(item) {		var view = new InstanceItem({
 			model : item,
 		});
-		
+
 		this.views.push(view);
 		this.$('tbody').append(view.render().el);
 	},
 
 	addAll : function() {
 		this.collection.each(this.addOne, this);
+		$('#target').foundation();
 	},
 
 	removeAll : function() {

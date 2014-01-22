@@ -10,11 +10,44 @@ var NetworkIn = require('../models/network_in');
 var NetworkOut = require('../models/network_out');
 var async = require('async');
 
+exports.readAvgCpuUtilization = function(req, res) {
+
+	var diff = req.params.time;
+	var startTime = new Date();
+	startTime.getHours(startTime.setHours() - diff);
+
+	CpuUtilization.aggregate({
+		// $match: { instance_id: { $gte: 21 }}
+		$match : {
+			// instance_id : 'i-2d800b2a',
+			time_stamp : {
+				//			$lt : new Date('Tue Jan 21 2014 19:31:00 GMT+0900 (대한민국 표준시)')
+				//			$lt : new Date('2014-01-21 10:31:00.000Z')
+				$gte : startTime
+			}
+		}
+	}).group({
+		_id : '$instance_id',
+		markAvg : {
+			$avg : '$average'
+		}
+	}).exec(function(err, docs) {
+		if (err) {
+			console.log(err);
+			return res.send();
+		}
+
+		console.log(res);
+		res.send(docs);
+	});
+};
+
 exports.readMaxResources = function(req, res) {
-	
+
 	var lastFrom = 24;
 
-	var today = new Date();;
+	var today = new Date();
+	;
 	var yesterday = new Date(today);
 	yesterday.setHours(yesterday.getHours() - lastFrom);
 
@@ -26,98 +59,133 @@ exports.readMaxResources = function(req, res) {
 	async.parallel({
 		cpu : function(callback) {
 			CpuUtilization.find({
-				instance_id: instance_id,
-				time_stamp: {$gt: yesterday, $lt: today }
-			}).sort({maximum: -1}).limit(1).exec(function(err, docs) {
-				if(err) {
+				instance_id : instance_id,
+				time_stamp : {
+					$gt : yesterday,
+					$lt : today
+				}
+			}).sort({
+				maximum : -1
+			}).limit(1).exec(function(err, docs) {
+				if (err) {
 					console.log(err);
 					return res.send();
 				}
-				
+
 				callback(null, docs[0]);
 			});
 		},
 
 		network_in : function(callback) {
 			NetworkIn.find({
-				instance_id: instance_id,
-				time_stamp: {$gt: yesterday, $lt: today }
-			}).sort({maximum: -1}).limit(1).exec(function(err, docs) {
-				if(err) {
+				instance_id : instance_id,
+				time_stamp : {
+					$gt : yesterday,
+					$lt : today
+				}
+			}).sort({
+				maximum : -1
+			}).limit(1).exec(function(err, docs) {
+				if (err) {
 					console.log(err);
 					callback(err, null);
 				}
-				
+
 				callback(null, docs[0]);
 			});
 		},
 
 		network_out : function(callback) {
 			NetworkOut.find({
-				instance_id: instance_id,
-				time_stamp: {$gt: yesterday, $lt: today }
-			}).sort({maximum: -1}).limit(1).exec(function(err, docs) {
-				if(err) {
+				instance_id : instance_id,
+				time_stamp : {
+					$gt : yesterday,
+					$lt : today
+				}
+			}).sort({
+				maximum : -1
+			}).limit(1).exec(function(err, docs) {
+				if (err) {
 					console.log(err);
 					callback(err, null);
 				}
-				
+
 				callback(null, docs[0]);
 			});
 		},
 
 		disk_read_bytes : function(callback) {
 			DiskReadBytes.find({
-				instance_id: instance_id,
-				time_stamp: {$gt: yesterday, $lt: today }
-			}).sort({maximum: -1}).limit(1).exec(function(err, docs) {
-				if(err) {
+				instance_id : instance_id,
+				time_stamp : {
+					$gt : yesterday,
+					$lt : today
+				}
+			}).sort({
+				maximum : -1
+			}).limit(1).exec(function(err, docs) {
+				if (err) {
 					console.log(err);
 					callback(err, null);
 				}
-				
+
 				callback(null, docs[0]);
 			});
 		},
 
 		disk_write_bytes : function(callback) {
 			DiskWriteBytes.find({
-				instance_id: instance_id,
-				time_stamp: {$gt: yesterday, $lt: today }
-			}).sort({maximum: -1}).limit(1).exec(function(err, docs) {
-				if(err) {
+				instance_id : instance_id,
+				time_stamp : {
+					$gt : yesterday,
+					$lt : today
+				}
+			}).sort({
+				maximum : -1
+			}).limit(1).exec(function(err, docs) {
+				if (err) {
 					console.log(err);
 					callback(err, null);
 				}
-				
+
 				callback(null, docs[0]);
 			});
 		},
 
 		disk_read_ops : function(callback) {
 			DiskReadOps.find({
-				instance_id: instance_id,
-				time_stamp: {$gt: yesterday, $lt: today }
-			}).sort({maximum: -1}).limit(1).exec(function(err, docs) {
-				if(err) {
+				instance_id : instance_id,
+				time_stamp : {
+					$gt : yesterday,
+					$lt : today
+				}
+			}).sort({
+				maximum : -1
+			}).limit(1).exec(function(err, docs) {
+				if (err) {
 					console.log(err);
 					callback(err, null);
 				}
-				
+
 				callback(null, docs[0]);
 			});
 		},
 
 		disk_write_ops : function(callback) {
 			DiskWriteOps.find({
-				instance_id: instance_id,
-				time_stamp: {$gt: yesterday, $lt: today }
-			}).sort({maximum: -1}).limit(1).exec(function(err, docs) {
-				if(err) {
+				instance_id : instance_id,
+				time_stamp : {
+					$gt : yesterday,
+					$lt : today
+				}
+			}).sort({
+				maximum : -1
+			}).limit(1).exec(function(err, docs) {
+				if (err) {
 					console.log(err);
 					callback(err, null);
 				}
-				
+
 				callback(null, docs[0]);
 			});
 		}
@@ -125,7 +193,7 @@ exports.readMaxResources = function(req, res) {
 		if (err) {
 			return res.send(err);
 		}
-		
+
 		res.send(results);
 	});
 };

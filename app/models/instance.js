@@ -9,6 +9,7 @@ var InstanceSchema = new mongoose.Schema({
 	public_ip : String,
 	private_ip : String,
 	security_group : String,
+	launch_time: Date,
 	updated: { type: Date, default: Date.now }
 });
 

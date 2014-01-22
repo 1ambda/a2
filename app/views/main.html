@@ -14,9 +14,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-		<link rel="shortcut icon" href="/favicon.ico">
-		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
+		<!-- <link rel="shortcut icon" href="/favicon.ico"> -->
 		<link rel="stylesheet" href="font-awesome/css/font-awesome.css" />
 		<link rel="stylesheet" href="foundation/css/foundation.css" />
 		<link rel="stylesheet" href="stylesheets/style.css" />
@@ -260,7 +258,7 @@
 			<h5><%= title %> &nbsp;<span class="title_unit"><%= unit %></span></h5>
 			</ul>
 			<ul class="right">
-			<a id="btn_range" href="#" class="button success tiny radius" data-dropdown="drop_<%= metric %>">3 Hours</a>
+			<a id="btn_range" href="#" class="button success tiny radius" data-dropdown="drop_<%= metric %>">1 Hour</a>
 			</ul>
 			</div>
 			<div id="chart_<%= metric %>" style="width:100%; height:220px;"></div>
@@ -278,43 +276,92 @@
 			</div>
 		</script>
 
-		<script type="text/template" id="tmpl_resource_cpu">
+		<script type="text/template" id="tmpl_resource_metric1_stat">
 			<div class="small-12 medium-6 large-6 columns">
-				<div class="small-6 medium-6 large-6 columns">
-					<h1>Stat 1</h1>					
-					<h1>Stat 2</h1>					
-				</div>
-				<div class="small-6 medium-6 large-6 columns">
-					<h1>Stat 3</h1>
-				</div>
+			<div class="small-12 medium-6 large-6 columns">
+			<h5>Max <%= maximum %></h5>
+			</div>
+			<div class="small-12 medium-6 large-6 columns">
+			<h5>Min <%= minimum %></h5>
+			</div>
+			<div class="small-12 medium-12 large-12 columns">
+			<h5>Average <%= average %></h5>
+			<h5>Time <%= time_stamp %></h5>
+			</div>
+			</div>
+		</script>
+
+		<script type="text/template" id="tmpl_resource_metric2_stat">
+			<div class="small-12 medium-6 large-6 columns">
+			<div class="small-12 medium-6 large-6 columns">
+			<h5>Max <%= maximum %></h5>
+			</div>
+			<div class="small-12 medium-6 large-6 columns">
+			<h5>Min <%= minimum %></h5>
+			</div>
+			<div class="small-12 medium-12 large-12 columns">
+			<h5>Average <%= average %></h5>
+			<h5>Time <%= time_stamp %></h5>
+			</div>
+			</div>
+		</script>
+
+		<script type="text/template" id="tmpl_resource_metric">
+			<div id="metric-chart1" class="small-12 medium-12 large-12 columns">
+
+			</div>
+			<div id="metric-stat">
+
+			</div>
+			<div id="metric-chart2" class="small-12 medium-12 large-12 columns">
+			</div>
+		</script>
+
+		<script type="text/template" id="tmpl_resource_metric_chart">
+			<ul class="left chart-header">
+			<h1><%= title %></h1>
+			</ul>
+			<ul class="right chart-header">
+			<a id="btn_range" href="#" data-dropdown="drop_<%= metric %>" class="button success small round dropdown">Last 1 Hour</a>
+			</ul>
+			<div id="chart-target_<%= metric %>" style="width:100%; height:300px;">
+			</div>
+
+			<!-- template data zone for dropdown-->
+			<ul id="drop_<%= metric %>" data-dropdown-content class="f-dropdown" metric="<%= metric %>">
+			<li class="cpu_range"><a>Last 1 Hour</a></li>
+			<li class="cpu_range"><a>Last 3 Hours</a></li>
+			<li class="cpu_range"><a>Last 6 Hours</a></li>
+			<li class="cpu_range"><a>Last 12 Hours</a></li>
+			<li class="cpu_range"><a>Last 1 Day</a></li>
+			<li class="cpu_range"><a>Last 3 Days</a></li>
+			<li class="cpu_range"><a>Last 1 Week</a></li>
+			<li class="cpu_range"><a>Last 1 Month</a></li>
+			</ul>
+		</script>
+
+		<script type="text/template" id="tmpl_resource_cpu_stat">
+			<div class="small-6 medium-6 large-6 columns">
+			<h2>Max <%= cpu.maximum %></h2>
+			<h2>Min <%= cpu.minimum %></h2>
+			</div>
+			<div class="small-6 medium-6 large-6 columns">
+			<h2>Average <%= cpu.average %></h2>
+			<h5>Time <%= new Date(cpu.time_stamp).toLocaleString() %></h5>
+			</div>
+		</script>
+
+		<script type="text/template" id="tmpl_resource_cpu">
+			<div id="cpu-stat" class="small-12 medium-6 large-6 columns">
 			</div>
 			<div id="cpu-chart" class="small-12 medium-12 large-12 columns">
-				<ul class="left">
-					<h1>Cpu Utilization</h1>
-				</ul>
-				<ul class="right">
-					<a href="#" data-dropdown="drop" class="button success round dropdown">Last 3 Hours</a>
-				</ul>
-				<div id="chart-target" style="width:100%; height:400px;">
-				</div>
 			</div>
-			
-			<!-- template data zone for dropdown-->
-            <ul id="drop" data-dropdown-content class="f-dropdown">
-            <li class=""><a>Last 1 Hour</a></li>
-            <li class=""><a>Last 3 Hours</a></li>
-            <li class=""><a>Last 6 Hours</a></li>
-            <li class=""><a>Last 12 Hours</a></li>
-            <li class=""><a>Last 1 Day</a></li>
-            <li class=""><a>Last 3 Days</a></li>
-            <li class=""><a>Last 1 Week</a></li>
-            <li class=""><a>Last 1 Month</a></li>
-            </ul>
+
 		</script>
 
 		<script type="text/template" id="tmpl_dashboard_attr">
 			<div class="row">
-			<h4 id="overview-header">Quick Overview</h4>
+			<h5 id="overview-header">Quick Overview for <span class="button tiny radius"><%= instance_id %></span></h5>
 			<div class="small-12 medium-12 large-4 columns dashboard-cpu-box">
 
 			<div class="chart-square">
@@ -369,10 +416,12 @@
 			<table cellspacing='0'>
 			<thead>
 			<tr>
-			<th>Service Name</th>
+			<th>Service</th>
 			<th>Instance ID</th>
 			<th>Instance Type</th>
+			<th>Upgrade</th>
 			<th>Instance State</th>
+			<th>Resolved</th>
 			<th>Region</th>
 			<th>Public IP</th>
 			<th>Private IP</th>
@@ -390,7 +439,21 @@
 			<td><%= service_name %></td>
 			<td><%= instance_id %></td>
 			<td><%= instance_type %></td>
-			<td><%= instance_state %></td>
+			<td></td>
+			<td>
+				<% if (instance_state == 'running') { 
+					%><img src="images/running.png"><% 
+				} else if (instance_state == "pending") {
+					%><img src="images/pending.png"><%
+				} else {
+					%><img src="images/stop.png"><%
+				} 
+				%>
+				<%= instance_state %>
+			</td>
+			<td>
+				<span data-tooltip class="has-tip" title="Launched : <%= (new Date(launch_time)).toLocaleString() %>"><%= resolved %></span>
+			</td>
 			<td><%= region %></td>
 			<td><%= public_ip %></td>
 			<td><%= private_ip %></td>
@@ -404,7 +467,7 @@
 			<table cellspacing='0'>
 			<thead>
 			<tr>
-			<th>Service Name</th>
+			<th>Service</th>
 			<th>Instance Number</th>
 			<th>Alert Number</th>
 			<th>Running</th>
@@ -424,10 +487,10 @@
 			<td><%= service_name %></td>
 			<td><%= instance_number %></td>
 			<td>0</td>
-			<td><%= state_running %></td>
-			<td><%= state_pending %></td>
-			<td><%= state_stopped %></td>
-			<td><%= state_terminated %></td>
+			<td><img src="images/running.png"><%= state_running %></td>
+			<td><img src="images/pending.png"><%= state_pending %></td>
+			<td><img src="images/stop.png"><%= state_stopped %></td>
+			<td><img src="images/stop.png"><%= state_terminated %></td>
 		</script>
 
 		<script type="text/template" id="tmpl_bow">
@@ -468,13 +531,15 @@
 			</div>
 			<!-- small resource arrow -->
 			<div class="resource_arrow_small show-for-small large-2 medium-3 columns">
-			<dl class="tabs vertical text-center" data-tab>
-			<dd><a href="#" class="active"><i class="fa fa-desktop fa-2x"></i><span>ALL Resources</span></a>			</dd>
-			<dd><a href="#"><i class="fa fa-bar-chart-o fa-2x"></i><span>CPU Utilization</span></a>
+			<dl class="tabs vertical text-center">
+			<dd class="active"><a href="#instance/<%= instance_id %>" class="resource-tab"><i class="fa fa-desktop fa-2x"></i><span>ALL Resources</span></a>			</dd>
+			<dd><a href="#instance/<%= instance_id %>/cpu" class="resource-tab"><i class="fa fa-bar-chart-o fa-2x"></i><span>CPU Utilization</span></a>
 			</dd>
-			<dd><a href="#"><i class="fa fa-file fa-2x"></i><span>Storage Access</span></a>
+			<dd><a href="#instance/<%= instance_id %>/storage_write" class="resource-tab"><i class="fa fa-sign-in fa-2x"></i><span>Storage Write</span></a>
 			</dd>
-			<dd><a href="#"><i class="fa fa-rss fa-2x"></i><span>Network Traffic</span></a>
+			<dd><a href="#instance/<%= instance_id %>/storage_read" class="resource-tab"><i class="fa fa-file fa-2x"></i><span>Storage Read</span></a>
+			</dd>
+			<dd><a href="#instance/<%= instance_id %>/network" class="resource-tab"><i class="fa fa-rss fa-2x"></i><span>Network Traffic</span></a>
 			</dd>
 			<dd class="empty hide-for-small fa-2x"></dd>
 			</dl>
@@ -497,7 +562,11 @@
 		<script src="javascripts/backbone/services.js"></script>
 		<script src="javascripts/backbone/instances.js"></script>
 		<script src="javascripts/backbone/resources.js"></script>
+		<script src="javascripts/backbone/metric.js"></script>
 		<script src="javascripts/backbone/cpu.js"></script>
+		<script src="javascripts/backbone/network.js"></script>
+		<script src="javascripts/backbone/storageWrite.js"></script>
+		<script src="javascripts/backbone/storageRead.js"></script>
 		<script src="javascripts/backbone/arrow.js"></script>
 		<script src="javascripts/backbone/bow.js"></script>
 		<script src="javascripts/backbone/target.js"></script>

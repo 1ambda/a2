@@ -22,13 +22,15 @@ window.DashboardView = Backbone.View.extend({
 		this.el = '#dashboard';
 		$('#dashboard', '#target').html(tmpl);
 		
-		$(document).foundation({
+			// topbar : {custom_back_text: false },
+		$('.overview').foundation({
 			orbit : {
 				timer_speed : 5000,
 				pause_on_hover : false, // Pauses on the current slide while hovering
 				resume_on_mouseout : true,
 			}
 		});
+		$(this.el).foundation();
 		$(window).trigger('resize');
 	}
 });
@@ -86,6 +88,8 @@ window.ResourceList = Backbone.View.extend({
 		});
 		
 		selectedView.chartView.render(metric, instance, time);
+		
+		return true;
 	},
 
 	initialize : function() {
@@ -125,7 +129,7 @@ window.ResourceList = Backbone.View.extend({
         
 		var metric = view.model.get('metric');
 		var instance = view.model.get('instance');		
-		var defaultTime = 'Last3Hours'; // last 1 hour
+		var defaultTime = 'Last1Hour'; // last 1 hour
 		
         view.chartView.render(metric, instance, defaultTime);
 
@@ -141,7 +145,7 @@ window.ResourceList = Backbone.View.extend({
 		this.addDashboard(instance_id);
 		
 		this.collection.reset([{
-			title : 'CPU Utilization',
+			title : 'CPU',
 			metric : 'cpu_utilization',
 			color : 'orangered',
 			instance : instance_id,
@@ -209,10 +213,13 @@ window.ResourceList = Backbone.View.extend({
 		if (this.dashViews.length) {
 			_.each(this.dashViews, function(item) {
 				item.remove();
+				item.unbind();
 			});
 
 			this.dashViews.length = 0;
 		}
+		
+		this.off();
 	}
 });
 
