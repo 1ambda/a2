@@ -7,7 +7,7 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://archer:rampart@localhost/test');
+mongoose.connect('mongodb://archer:rampart@ds027829.mongolab.com:27829/test');
 
 var ejs = require('ejs');
 ejs.open = '{{';

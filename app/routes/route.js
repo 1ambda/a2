@@ -5,8 +5,8 @@ var resource = require('./resource');
 var routing = function(app) {
 	// index
 		// !-- Debug -!
-	app.get('/', index.home);
-	// app.get('/', index.debug);
+	// app.get('/', index.home);
+	app.get('/', index.debug);
 	app.post('/login', index.login);
 	app.get('/logout', index.logout);
 	

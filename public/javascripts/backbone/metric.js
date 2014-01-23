@@ -32,6 +32,9 @@ window.MetricChartView = Backbone.View.extend({
 
 	drawChart : function() {
 		this.target = 'chart-target_' + this.metric;
+		
+		console.log(this.collection.toJSON());
+		
 		this.chart.dataProvider = this.collection.toJSON();
 		this.chart.write(this.target);
 		this.chart.validateData();
@@ -59,6 +62,7 @@ window.MetricChartView = Backbone.View.extend({
 
 	makeChart: function () {
 		this.chart = createChart();
+		this.chart.graphs[0].valueField = "sum";
 		this.chart.graphs[0].lineColor = ColorMap[this.color];
 		this.chart.chartCursor.categoryBalloonColor = ColorMap[this.color];
 		this.chart.numberFormatter = {

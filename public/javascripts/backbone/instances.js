@@ -25,8 +25,6 @@ window.CpuAvgView = Backbone.View.extend({
 		var length = result.length;
 		var index = 0;
 
-		console.log(result);
-
 		var tmpl = _.template($('#tmpl_instance_upgrade').html());
 
 		if (length) {
