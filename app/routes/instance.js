@@ -14,8 +14,7 @@ exports.readAvgCpuUtilization = function(req, res) {
 
 	var diff = Number(req.params.time);
 	var startTime = new Date();
-	startTime.getHours(startTime.setHours() - diff);
-
+	startTime.setHours(startTime.getHours() - diff);
 	CpuUtilization.aggregate({
 		// $match: { instance_id: { $gte: 21 }}
 		$match : {
