@@ -39,6 +39,15 @@ window.CpuAvgView = Backbone.View.extend({
 						cpu_check_string : window.cpuUpgradeCheckString,
 						avg : average
 					};
+					
+					console.log($(target));
+					console.log(result[index]._id);
+					console.log(type);
+					if (window.instanceType[type]) {
+						console.log(window.instanceType[type]);
+					}
+					console.log("====");
+					
 					if (window.instanceType[type]) {
 						if (average >= window.cpuUpgradeCondition) {
 							parsed['instance_type'] = window.instanceType[type].upgrade;
