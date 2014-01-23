@@ -1,23 +1,33 @@
+body {
+	background: #efefef;
+}
+
 #section_main {
 	background-color: #085a78;
 	font-family: 'Ubuntu', sans-serif;
 	color: white;
 }
 
-#section_main h1, #section_main h3 {
+#section_main h1, #section_main h2, #section_main h3 {
 	color: white;
 	font-family: 'Ubuntu', sans-serif;
 	padding-top: 20px;
-}
-
-#section_main a {
-	margin-left: 15px;
 }
 
 #section_desc {
 	background-color: #efefef;
 }
 
+#btn-start {
+	margin: 35px;
+	margin-top: 25px;
+	margin-bottom: 20px;
+}
+
 .main-con {
 	padding: 30px 0px;
+}
+
+.padding-left-30 {
+	padding-left: 30px;
 }

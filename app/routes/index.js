@@ -32,7 +32,7 @@ exports.login = function(req, res) {
 		return;
 	}
 
-	var sdk = require('./utils/aws');
+	var sdk = require('../utils/aws');
 	var aws = sdk.createService(req.body.akid, req.body.sak);
 	var ec2 = new aws.EC2({
 		region : "us-east-1"

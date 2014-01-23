@@ -33,7 +33,6 @@ window.CpuAvgView = Backbone.View.extend({
 			var flag = setInterval(function() {
 				if (index < length) {
 					var target = $('td.' + result[index]._id, '#target');
-					console.log(target);
 					var type = $(target).prev().text();
 
 					var average = Number(result[index].avg).toFixed(2);

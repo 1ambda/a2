@@ -436,7 +436,7 @@
 		</script>
 
 		<script type="text/template" id="tmpl_instance_upgrade">
-			<span data-tooltip class="has-tip" title="<%= cpu_check_string %> : <strong><%= avg %><strong> %">
+			<span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="<%= cpu_check_string %> : <strong><%= avg %><strong> %">
 				<% if (comment == "down") { 
 					%> <i class="fa fa-angle-double-down"></i><% 
 					} else { 
@@ -452,7 +452,8 @@
 			<td><%= instance_id %></td>
 			<td class="type"><%= instance_type %></td>
 			<td class="<%= instance_id %>">
-				<i class="fa fa-spinner fa-spin"></i>
+				
+				<span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="<i class='fa fa-warning'></i> Enable Detilaed Monitoring or Run this instance"><i class="fa fa-spinner fa-spin"></i></span>
 			</td>
 			<td>
 				<% if (instance_state == 'running') { 
