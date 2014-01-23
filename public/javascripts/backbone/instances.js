@@ -24,6 +24,8 @@ window.CpuAvgView = Backbone.View.extend({
 		var result = this.collection.toJSON();
 		var length = result.length;
 		var index = 0;
+		
+		console.log(result);
 
 		var tmpl = _.template($('#tmpl_instance_upgrade').html());
 
@@ -44,9 +46,11 @@ window.CpuAvgView = Backbone.View.extend({
 
 					if ( average >= window.cpuUpgradeCondition ) {
 						parsed['instance_type'] = window.instanceType[type].upgrade;
+						parsed['comment'] = "up";
 						$(target).html(tmpl(parsed));
 					} else if ( average < window.cpuDowngradeCondition ) {
 						parsed['instance_type'] = window.instanceType[type].downgrade;
+						parsed['comment'] = "down";
 						$(target).html(tmpl(parsed));
 					} else {
 						$('td.' + result[index]._id, '#target').html('');

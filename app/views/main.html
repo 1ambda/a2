@@ -437,7 +437,14 @@
 
 		<script type="text/template" id="tmpl_instance_upgrade">
 			<span data-tooltip class="has-tip" title="<%= cpu_check_string %> : <strong><%= avg %><strong> %">
-				<%= instance_type %></span>
+				<% if (comment == "down") { 
+					%> <i class="fa fa-angle-double-down"></i><% 
+					} else { 
+					%> <i class="fa fa-angle-double-up"></i><%
+					} 
+				%> 
+				<%= instance_type %>
+			</span>
 		</script>
 
 		<script type="text/template" id="tmpl_instance_item">
