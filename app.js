@@ -23,7 +23,7 @@ app.set('view engine', 'html');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.cookieParser());
-app.use(express.session({secret: '1234567890QWERTY'}));
+app.use(express.session({secret: 'aws-archer'}));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());

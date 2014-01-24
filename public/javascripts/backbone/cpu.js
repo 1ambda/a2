@@ -36,8 +36,7 @@ window.CpuChartView = Backbone.View.extend({
 		this.color = 'purple';
 		this.target = 'chart-target_cpu_utilization';
 		this.precise = 2;
-		this.defaultTime = 'Last3Hours';
-
+		this.defaultTime = 'Last1Hours';
 	},
 
 	draw : function() {
