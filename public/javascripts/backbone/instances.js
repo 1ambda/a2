@@ -40,14 +40,6 @@ window.CpuAvgView = Backbone.View.extend({
 						avg : average
 					};
 					
-					console.log($(target));
-					console.log(result[index]._id);
-					console.log(type);
-					if (window.instanceType[type]) {
-						console.log(window.instanceType[type]);
-					}
-					console.log("====");
-					
 					if (window.instanceType[type]) {
 						if (average >= window.cpuUpgradeCondition) {
 							parsed['instance_type'] = window.instanceType[type].upgrade;
@@ -136,18 +128,10 @@ window.InstanceList = Backbone.View.extend({
 			reset : true
 		});
 
-		this.cpuAvgCollection = new CpuAvgCollection();
-		this.cpuAvgView = new CpuAvgView({
-			collection : this.cpuAvgCollection
-		});
-
-		this.cpuAvgView.render();
-
-		this.views.push(this.cpuAvgView);
 	},
 
-	addOne : function(item) {		var view = new InstanceItem({
-			model : item,
+	addOne : function(item) {
+		var view = new InstanceItem({			model : item,
 		});
 
 		this.views.push(view);
@@ -156,7 +140,14 @@ window.InstanceList = Backbone.View.extend({
 
 	addAll : function() {
 		this.collection.each(this.addOne, this);
-		$('#target').foundation();
+
+		this.cpuAvgCollection = new CpuAvgCollection();		this.cpuAvgView = new CpuAvgView({
+			collection : this.cpuAvgCollection
+		});
+		this.cpuAvgView.render();
+		this.views.push(this.cpuAvgView);
+		
+		$('#target').foundation();
 	},
 
 	removeAll : function() {

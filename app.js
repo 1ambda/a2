@@ -16,7 +16,7 @@ ejs.close = '}}';
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 80);
+app.set('port', process.env.PORT || 8080);
 app.engine('.html', ejs.__express);
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'html');
