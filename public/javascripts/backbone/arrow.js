@@ -5,10 +5,41 @@ window.ArrowView = Backbone.View.extend({
 		'click a[class=arrow_attr]' : 'arrowAttrClicked',
 		'click a[class=arrow_attr_region]' : 'arrowAttrRegionClicked',
 		'click a[class=arrow_attr_type]' : 'arrowAttrTypeClicked',
+		'click a[class=arrow_attr_metric]' : 'arrowAttrMetricClicked',
+		'click a[class=arrow_attr_statistic]' : 'arrowAttrStatisticClicked',
+		'click a[class=arrow_attr_status]' : 'arrowAttrStatusClicked',
+		'click span' : 'childClicked'
+	},
+
+	arrowResourceCpu : function(e) {
 	},
 	
-	arrowResourceCpu: function(e) {
-		console.log(1);	
+	childClicked: function(e) {
+		e.stopPropagation();	
+	},
+	
+	arrowAttrMetricClicked: function(e) {
+		var dom = e.target;
+		var bow = '#bow input';
+
+		var previous = $(bow).val();
+		$(bow).val(previous + ' metric=' + $(dom).text());
+	},
+
+	arrowAttrStatisticClicked: function(e) {
+		var dom = e.target;
+		var bow = '#bow input';
+
+		var previous = $(bow).val();
+		$(bow).val(previous + ' statistic=' + $(dom).text());
+	},
+
+	arrowAttrStatusClicked: function(e) {
+		var dom = e.target;
+		var bow = '#bow input';
+
+		var previous = $(bow).val();
+		$(bow).val(previous + ' status=' + $(dom).text());
 	},
 
 	arrowAttrClicked : function(e) {
@@ -19,9 +50,15 @@ window.ArrowView = Backbone.View.extend({
 
 		if ($(dom).text() == 'service text') {
 			$(bow).val(previous + ' ' + 'service=');
+		} else if ( $(dom).text() == 'threshold number') {
+			$(bow).val(previous + ' ' + 'threshold=');
+		} else if ( $(dom).text() == 'period number') {
+			$(bow).val(previous + ' ' + 'period=');
 		} else {
 			$(bow).val(previous + ' ' + $(dom).text() + '=');
 		}
+		
+		e.stopPropagation();
 	},
 
 	arrowAttrRegionClicked : function(e) {
@@ -53,6 +90,10 @@ window.ArrowView = Backbone.View.extend({
 			case 'service' :
 				this.serviceArrow();
 				break;
+			case 'alert' :
+				this.alertArrow();
+				break;
+
 		}
 
 		$('#arrow').foundation();
@@ -61,7 +102,9 @@ window.ArrowView = Backbone.View.extend({
 
 	resourceArrow : function(instance_id) {
 		this.template = _.template($('#tmpl_resource_arrow').html());
-		var tmpl = this.template({instance_id : instance_id});
+		var tmpl = this.template({
+			instance_id : instance_id
+		});
 		this.$el.html(tmpl);
 		var parentHeight = $('dd.empty').parent().height();
 
@@ -71,7 +114,7 @@ window.ArrowView = Backbone.View.extend({
 			var windowHeight = $(window).height();
 
 			var Cheight = null;
-			
+
 			if (contentHeight > windowHeight) {
 				Cheight = $('body').prop('scrollHeight');
 			} else {
@@ -83,6 +126,7 @@ window.ArrowView = Backbone.View.extend({
 				'height' : Cheight + 'px'
 			});
 		}
+
 
 		window.onload = funLoad;
 		window.onresize = funLoad;
@@ -121,6 +165,37 @@ window.ArrowView = Backbone.View.extend({
 
 	serviceArrow : function() {
 		this.template = _.template($('#tmpl_service_arrow').html());
+		var tmpl = this.template();
+		this.$el.html(tmpl);
+
+		var parentHeight = $('.empty').parent().height();
+
+		var funLoad = function() {
+
+			var contentHeight = $('#content').height();
+			var windowHeight = $(window).height();
+
+			var Cheight = null;
+
+			if (contentHeight > windowHeight) {
+				Cheight = $('body').prop('scrollHeight');
+			} else {
+				Cheight = $('body').height();
+			}
+
+			Cheight -= $('.empty').offset().top;
+
+			$('.empty').css({
+				'height' : Cheight + 'px'
+			});
+		}();
+
+		window.onload = funLoad;
+		window.onresize = funLoad;
+	},
+
+	alertArrow : function() {
+		this.template = _.template($('#tmpl_alert_arrow').html());
 		var tmpl = this.template();
 		this.$el.html(tmpl);
 

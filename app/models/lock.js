@@ -10,6 +10,7 @@ var LockSchema = new mongoose.Schema({
 	virginia: { type: Number, default :0 }, 
 	california: { type: Number, default :0 }, 
 	oregon: { type: Number, default :0 }, 
+	alert: { type: Number, default :0 }, 
 	locked: Boolean,
 	updated: { type: Date, default: Date.now },
 	polling_range: Number,

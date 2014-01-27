@@ -26,13 +26,13 @@ window.CpuAvgView = Backbone.View.extend({
 		var index = 0;
 
 		var tmpl = _.template($('#tmpl_instance_upgrade').html());
-
+		
 		if (length) {
 			var flag = setInterval(function() {
 				if (index < length) {
 					var target = $('td.' + result[index]._id, '#target');
-					var type = $(target).prev().text();
-
+					var type = $(target).parent('tr').children('.type').text();
+					
 					var average = Number(result[index].avg).toFixed(2);
 
 					var parsed = {

@@ -156,6 +156,125 @@
 			</div>
 			</div>
 		</script>
+		
+			<script type="text/template" id="tmpl_alert_arrow">
+			<div class="instance_arrow large-2 medium-3 columns">
+			<div class="hide-for-small">
+			<nav>
+			<ul class="side-nav">
+			<h5>The Arrows</h5>
+			<li>
+			<a class="arrow_attr" data-search="">region</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">status</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">name</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">description</a>
+			</li>
+			<!-- <li>
+			<a class="arrow_attr" data-search="">type</a>
+			</li> -->
+			<li>
+			<a class="arrow_attr" data-search="">object</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">metric</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">condition</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">threshold <span class="label secondary">number</span></a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">statistic</a>
+			</li>
+			<li>
+			<a class="arrow_attr" data-search="">period <span class="label secondary">number</span></a>
+			</li>
+			<li>
+			<a data-search=""></a>
+			</li>
+
+			<li class="divider"></li>
+			<li class="heading">
+			Status
+			</li>
+			<li>
+			<a class="arrow_attr_status" data-search="">OK</a>
+			</li>
+			<li>
+			<a class="arrow_attr_status" data-search="">ALARM</a>
+			</li>
+			<li>
+			<a class="arrow_attr_status" data-search="">INSUFFICIENT_DATA</a>
+			</li>
+			
+			<li class="divider"></li>
+			<li class="heading">
+			Metric
+			</li>
+			<li>
+			<a class="arrow_attr_metric" data-search="">CPUUtilization</a>
+			</li>
+			<li>
+			<a class="arrow_attr_metric" data-search="">DiskReadBytes</a>
+			</li>
+			<li>
+			<a class="arrow_attr_metric" data-search="">DiskReadOps</a>
+			</li>
+			<li>
+			<a class="arrow_attr_metric" data-search="">DiskWriteBytes</a>
+			</li>
+			<li>
+			<a class="arrow_attr_metric" data-search="">DiskWriteOps</a>
+			</li>
+			<li>
+			<a class="arrow_attr_metric" data-search="">NetworkIn</a>
+			</li>
+			<li>
+			<a class="arrow_attr_metric" data-search="">NetworkOut</a>
+			</li>
+			<li>
+			<a class="arrow_attr_metric" data-search="">StatusCheckFailed</a>
+			</li>
+			<li>
+			<a class="arrow_attr_metric" data-search="">StatusCheckFailed_Instance</a>
+			</li>
+			<li>
+			<a class="arrow_attr_metric" data-search="">StatusCheckFailed_System</a>
+			</li>
+			
+			<li class="divider"></li>
+			<li class="heading">
+			Statistic
+			</li>
+			<li>
+			<a class="arrow_attr_statistic" data-search="">SampleCount</a>
+			</li>
+			<li>
+			<a class="arrow_attr_statistic" data-search="">Average</a>
+			</li>
+			<li>
+			<a class="arrow_attr_statistic" data-search="">Sum</a>
+			</li>
+			<li>
+			<a class="arrow_attr_statistic" data-search="">Minimum</a>
+			</li>
+			<li>
+			<a class="arrow_attr_statistic" data-search="">Maximum</a>
+			</li>
+			<li class="divider"></li>
+			<li class="empty"></li>
+			</ul>
+			</nav>
+			</div>
+			</div>
+		</script>
 
 		<script type="text/template" id="tmpl_instance_arrow">
 			<div class="instance_arrow large-2 medium-3 columns">
@@ -409,6 +528,102 @@
 			</div>
 		</script>
 
+		<script type="text/template" id="tmpl_alert_list">
+			<div class="small-12 medium-12 large-12 columns">
+			<h4 class="target-header">Target</h4>
+			<br/>
+			<table cellspacing='0'>
+			<thead>
+			<tr class="text-center">
+			<th>Region</th>
+			<th>Status</th>
+			<th>Name</th>
+			<th>Description</th>
+			<!-- <th>Type</th> -->
+			<th>Object</th>
+			<th>Metric</th>
+			<th>Condition</th>
+			<th>Threshold</th>
+			<th>Statistics</th>
+			<th>Period</th>
+			<th>Alarm Action</th>
+			<th>OK Action</th>
+			<th>Insufficient Data Action</th>
+			</tr>
+			</thead>
+			<tbody>
+
+			</tbody>
+			</table>
+			</div>
+		</script>
+		<script type="text/template" id="tmpl_alert_item">
+			<td><%= region %> </td>
+			<td>
+				<span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="<%= status %>">
+				<% if (status == 'OK') {
+				%><img class="alert-status" src="images/running.png"><%
+				} else if (status == "INSUFFICIENT_DATA") {
+				%><img class="alert-status" src="images/pending.png"><%
+				} else if (status =="ALARM"){
+				%><img class="alert-status" src="images/stop.png"><%
+				}
+				%></span>
+				<!-- <%= status %> -->
+			</td>
+			<td><%= name %> </td>
+			<td><%= description %></td>
+			<!-- <td><%= type %></td> -->
+			<td class="alert-object">
+				<span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Type : <%= type %>">
+					<% if (type == "InstanceId" && object != "All Instances") { %>
+						<a href="#instance/<%= object %>"><%= object %></a>	
+					<% } else { %>
+						<%= object %>
+					<% } %>
+				</span>
+			</td>
+			<td><%= metric %></td>
+			<td><%= condition %></td>
+			<td><%= threshold %></span></td>
+			<td><%= statistic %></td>
+			<td><%= period %>s </td>
+			<td>
+				<span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="<%= action_alarm %>">
+				<% if (action_alarm.split(':')[2] == "sns") { %>
+					SNS 
+				<% } else if (action_alarm.split(':').pop() == "stop") {%>
+					STOP
+				<% } else if (action_alarm.split(':').pop() == "terminate") {%>
+					Terminate
+				<% } %>
+				</span>
+			</td>
+			<td>
+				<span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="<%= action_ok %>">
+				<% if (action_ok.split(':')[2] == "sns") { %>
+					SNS 
+				<% } else if (action_ok.split(':').pop() == "stop") {%>
+					STOP
+				<% } else if (action_ok.split(':').pop() == "terminate") {%>
+					Terminate
+				<% } %>
+				</span>
+			</td>
+			<td>
+				<span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="<%= action_insufficient %>">
+				<% if (action_insufficient.split(':')[2] == "sns") { %>
+					SNS 
+				<% } else if (action_insufficient.split(':').pop() == "stop") {%>
+					STOP
+				<% } else if (action_insufficient.split(':').pop() == "terminate") {%>
+					Terminate
+				<% } %>
+				</span>
+			</td>
+		</script>
+		
+		
 		<script type="text/template" id="tmpl_instance_list">
 			<div class="small-12 medium-12 large-12 columns">
 			<h4 class="target-header">Target</h4>
@@ -419,13 +634,13 @@
 			<th>Service</th>
 			<th>Instance ID</th>
 			<th>Instance Type</th>
-			<th>A2 Comment</th>
 			<th>Instance State</th>
 			<th>Resolved</th>
 			<th>Region</th>
 			<th>Public IP</th>
 			<th>Private IP</th>
 			<th>Security Group</th>
+			<th>A2 Comment</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -434,16 +649,18 @@
 			</table>
 			</div>
 		</script>
+		
+		
 
 		<script type="text/template" id="tmpl_instance_upgrade">
 			<span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="<%= cpu_check_string %> : <strong><%= avg %><strong> %">
-				<% if (comment == "down") { 
-					%> <i class="fa fa-angle-double-down"></i><% 
-					} else { 
-					%> <i class="fa fa-angle-double-up"></i><%
-					} 
-				%> 
-				<%= instance_type %>
+			<% if (comment == "down") {
+			%> <i class="fa fa-angle-double-down"></i><%
+			} else {
+			%> <i class="fa fa-angle-double-up"></i><%
+			}
+			%>
+			<%= instance_type %>
 			</span>
 		</script>
 
@@ -451,28 +668,27 @@
 			<td><%= service_name %></td>
 			<td><%= instance_id %></td>
 			<td class="type"><%= instance_type %></td>
-			<td class="<%= instance_id %>">
-				
-				<span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="<i class='fa fa-warning'></i> Enable Detailed Monitoring or Run this instance"><i class="fa fa-spinner fa-spin"></i></span>
+			<td>
+			<% if (instance_state == 'running') {
+			%><img src="images/running.png"><%
+			} else if (instance_state == "pending") {
+			%><img src="images/pending.png"><%
+			} else {
+			%><img src="images/stop.png"><%
+			}
+			%>
+			<%= instance_state %>
 			</td>
 			<td>
-				<% if (instance_state == 'running') { 
-					%><img src="images/running.png"><% 
-				} else if (instance_state == "pending") {
-					%><img src="images/pending.png"><%
-				} else {
-					%><img src="images/stop.png"><%
-				} 
-				%>
-				<%= instance_state %>
-			</td>
-			<td>
-				<span data-tooltip class="has-tip" title="Launched : <%= (new Date(launch_time)).toLocaleString() %>"><%= resolved %></span>
+			<span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Launched : <%= (new Date(launch_time)).toLocaleString() %>"><%= resolved %></span>
 			</td>
 			<td><%= region %></td>
 			<td><%= public_ip %></td>
 			<td><%= private_ip %></td>
 			<td><%= security_group %></td>
+			<td class="<%= instance_id %>">
+			<span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="<i class='fa fa-warning'></i> Enable Detailed Monitoring or Run this instance"><i class="fa fa-spinner fa-spin"></i></span>
+			</td>
 		</script>
 
 		<script type="text/template" id="tmpl_service_list">
@@ -575,6 +791,7 @@
 		<script src="javascripts/config.js"></script>
 
 		<script src="javascripts/backbone/charts.js"></script>
+		<script src="javascripts/backbone/alerts.js"></script>
 		<script src="javascripts/backbone/services.js"></script>
 		<script src="javascripts/backbone/instances.js"></script>
 		<script src="javascripts/backbone/resources.js"></script>

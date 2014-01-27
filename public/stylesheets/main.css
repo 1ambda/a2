@@ -211,6 +211,7 @@ html, body {
 
 #target table thead th {
 	font-size: 13px;
+	text-align: center;
 }
 
 /* for table */
@@ -253,16 +254,18 @@ ul.f-dropdown li {
 }
 
 /* custom table style */
+
+
 table a:link {
-	color: #666;
+	color: #007295;
 	font-weight: bold;
 	text-decoration: none;
 }
-table a:visited {
+/*table a:visited {
 	color: #999999;
 	font-weight: bold;
 	text-decoration: none;
-}
+}*/
 table a:active, table a:hover {
 	color: #bd5a35;
 	text-decoration: underline;
@@ -512,4 +515,11 @@ table tr:hover td {
 
 .orbit-container h2 {
 	color: white;
+}
+
+	
+td img.alert-status {
+	margin-right: 0px;
+	margin-bottom: 0px;
+	cursor: auto;
 }

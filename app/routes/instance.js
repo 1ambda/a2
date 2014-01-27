@@ -225,8 +225,6 @@ exports.readByInstanceQuery = function(req, res) {
 			res.send(result);
 		});
 	});
-
-	console.log(command);
 };
 
 exports.readByRegion = function(req, res) {

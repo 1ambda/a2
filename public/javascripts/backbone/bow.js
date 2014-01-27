@@ -29,9 +29,33 @@ window.BowView = Backbone.View.extend({
 
 		if (currentAction[3] == '#service' && currentAction.length < 5) {
 			this.serviceShoot(arrow);
+		} else if (currentAction[3] == "#alert") {
+			this.alertShoot(arrow);
 		} else {
 			this.regionShoot(arrow);
 		}
+	},
+
+	alertShoot : function(arrow) {
+
+		var insertedOptions = arrow.split(' ');
+		var command = makeAlertCommand(insertedOptions);
+		window.appView.alerts.url = (
+			'/alerts/' + 
+			command.region + '/' + 
+			command.status + '/' + 
+			command.name + '/' + 
+			command.description + '/' + 
+			command.object + '/' + 
+			command.metric + '/' + 
+			command.condition + '/' + 
+			command.threshold + '/' + 
+			command.statistic + '/' + 
+			command.period
+		);
+
+		window.appView.alertList.render();
+		
 	},
 
 	regionShoot : function(arrow) {
@@ -39,10 +63,17 @@ window.BowView = Backbone.View.extend({
 		var insertedOptions = arrow.split(' ');
 		var command = makeInstanceCommand(insertedOptions);
 
-		window.appView.instances.url = ('/instances/' + command.service_name + '/' + command.instance_id + '/' + command.instance_type + '/' + command.instance_state + '/' + command.region + '/' + command.public_ip + '/' + command.private_ip + '/' + command.security_group
+		window.appView.instances.url = 	(
+			'/instances/' + 
+			command.service_name + '/' + 
+			command.instance_id + '/' + 
+			command.instance_type + '/' + 
+			command.instance_state + '/' + 
+			command.region + '/' + 
+			command.public_ip + '/' + 
+			command.private_ip + '/' + 
+			command.security_group
 		);
-
-		console.log(command);
 
 		window.appView.instanceList.render();
 
@@ -72,6 +103,63 @@ window.BowView = Backbone.View.extend({
 		this.$el.html('');
 	}
 });
+
+function makeAlertCommand(insertedOptions) {
+	var command = {};
+	
+	_.each(insertedOptions, function(item) {
+		var parsedOption = item.split(/\=(.+)?/);
+		if (parsedOption.length >= 2) {
+
+			switch(parsedOption[0].toLowerCase()) {
+				case 'region' :
+				case 'reg' :
+					command.region = parsedOption[1];
+					break;
+				case 'status' :
+					command.status = parsedOption[1];
+					break;
+				case 'name' :
+					command.name = parsedOption[1];
+					break;
+				case 'description' :
+				case 'desc' :
+					command.description = parsedOption[1];
+					break;
+				case 'object' :
+				case 'obj' :
+					command.object = parsedOption[1];
+					break;
+				case 'metric' :
+				case 'metr' :
+				case 'met' :
+					command.metric = parsedOption[1];
+					break;
+				case 'condition' :
+				case 'cond' :
+				case 'con' :
+					command.condition = parsedOption[1];
+					break;
+				case 'threshold' :
+				case 'thres' :
+				case 'thrs' :
+				case 'th' :
+					command.threshold = parsedOption[1];
+					break;
+				case 'statistic' :
+				case 'statis' :
+					command.statistic = parsedOption[1];
+					break;
+				case 'period' :
+				case 'peri' :
+					command.period = parsedOption[1];
+					break;
+			};
+		}
+	});
+
+	return command;
+};
 
 function makeServiceCommand(insertedOptions) {
 	var command = {};

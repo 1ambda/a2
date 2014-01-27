@@ -35,6 +35,11 @@ $(document).ready(function() {
 			this.serviceList = new ServiceList({
 				collection : this.services
 			});
+			
+			this.alerts = new Alerts();
+			this.alertList = new AlertList({
+				collection: this.alerts
+			});
 
 			this.resources = new Resources();
 			this.resourceList = new ResourceList({
@@ -118,6 +123,10 @@ $(document).ready(function() {
 		},
 
 		alertPage : function() {
+			var url = '/alerts/';
+			appView.target.render(appView.alertList, url);
+			appView.arrow.render('alert');
+			appView.bow.render();
 		},
 
 		regionPage : function(region) {
