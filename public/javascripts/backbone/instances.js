@@ -91,11 +91,11 @@ window.InstanceItem = Backbone.View.extend({
 		if (diffHours >= window.reservedHours) {
 			// 2 weeks
 			this.model.set({
-				resolved : 'required'
+				reserved : 'required'
 			});
 		} else {
 			this.model.set({
-				resolved : ''
+				reserved : ''
 			});
 		}
 

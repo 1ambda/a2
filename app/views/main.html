@@ -635,7 +635,7 @@
 			<th>Instance ID</th>
 			<th>Instance Type</th>
 			<th>Instance State</th>
-			<th>Resolved</th>
+			<th>Reserved</th>
 			<th>Region</th>
 			<th>Public IP</th>
 			<th>Private IP</th>
@@ -680,7 +680,7 @@
 			<%= instance_state %>
 			</td>
 			<td>
-			<span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Launched : <%= (new Date(launch_time)).toLocaleString() %>"><%= resolved %></span>
+			<span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Launched : <%= (new Date(launch_time)).toLocaleString() %>"><%= reserved %></span>
 			</td>
 			<td><%= region %></td>
 			<td><%= public_ip %></td>
