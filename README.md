@@ -1,6 +1,12 @@
 A2(AWS ARCHER)
 ===
 <br>
+- Backbone.js
+- Node.js with Express
+- MongoDB
+- Foundation CSS
+
+
 AWS Monitoring System. [See Project Overview](https://raw.github.com/ansterd/a2/master/images/A2.pdf)
 <br>
 A2 requires [Rampart](https://github.com/ansterd/rampart) to collect aws metric 
